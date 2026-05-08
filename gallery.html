@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>isaiz_ | Selected Work</title>
+    <title>isaiz_ | Interactive Gallery</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -14,6 +19,7 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         serif: ['Gloock', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         brand: {
@@ -26,17 +32,17 @@
             }
         }
     </script>
+
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
     <style>
-        /* Smooth image loading and hover transitions */
         body {
             background-color: #0a0a0a;
             color: #ffffff;
-        }
-        .project-image {
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .group:hover .project-image {
-            transform: scale(1.05);
         }
         ::-webkit-scrollbar {
             width: 10px;
@@ -51,370 +57,596 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
-        h1, h2, h3 {
-            font-family: 'Gloock', serif;
+        /* Modal animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-overlay {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        .modal-content {
+            animation: slideUp 0.4s ease-out forwards;
+        }
+        /* Hide scrollbar in modal but allow scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
     </style>
 </head>
 <body class="bg-[#0a0a0a] text-white antialiased flex flex-col min-h-screen">
+    <div id="root"></div>
 
-    <header class="fixed w-full top-0 bg-[#0a0a0a]/80 backdrop-blur-md z-50 border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex justify-between items-center h-24">
-                <a href="#" class="text-3xl font-serif tracking-wider text-white hover:text-gray-400 transition-colors">
-                    isaiz_
-                </a>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-                <div class="hidden md:flex items-center px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-                    <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
-                    <span class="text-xs font-medium text-gray-300">Available for work</span>
-                </div>
-                
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#work" class="text-sm font-medium text-white hover:text-gray-400 transition-colors">Work</a>
-                    <a href="#about" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">About</a>
-                    <a href="#contact" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Contact</a>
-                </nav>
+        // Base placeholder images for the sliders
+        const placeholders = [
+            "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800",
+            "https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&q=80&w=800",
+            "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=800"
+        ];
 
-                <button class="md:hidden p-2 text-gray-400 hover:text-white focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-            </div>
-        </div>
+        // Standard production sequence for packaging
+        const defaultSequence = [
+            { name: "Pre-press & Color Separation", detail: "Checking dielines and CMYK channels." },
+            { name: "Printing", detail: "Flexography / Offset printing onto substrate." },
+            { name: "Finishing & Coating", detail: "Applying laminates, foil, or Spot UV." },
+            { name: "Die-cutting & Assembly", detail: "Cutting to shape and final gluing/folding." }
+        ];
 
-        <div id="mobile-menu" class="hidden md:hidden bg-[#121212] border-t border-white/5 px-6 py-6 space-y-6 shadow-lg">
-            <div class="flex items-center px-3 py-2 rounded-full bg-white/5 border border-white/10 w-fit">
-                <span class="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
-                <span class="text-xs font-medium text-gray-300">Available for work</span>
-            </div>
-            <a href="#work" class="block text-lg font-medium text-white" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Work</a>
-            <a href="#about" class="block text-lg font-medium text-gray-400" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
-            <a href="#contact" class="block text-lg font-medium text-gray-400" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
-        </div>
-    </header>
+        const projectData = [
+            {
+                id: 1,
+                title: "Mira Mar Productos Marinos - Almeja Chirla",
+                category: "Food & Beverage",
+                images: [placeholders[0], placeholders[1], placeholders[2]],
+                description: "Clean, nautical branding for the Seafood industry, allowing the product (clams) to be fully visible. Packaged in a flexible pouch featuring a clear window with an opaque white underprint.",
+                tags: ["Seafood", "Flexible Pouch"],
+                specs: { 
+                    packaging: "Flexible pouch / Bag", 
+                    finishes: "Clear window, Opaque white underprint", 
+                    industry: "Seafood",
+                    colors: "CMYK + 1 White Ink",
+                    substrate: "Transparent BOPP / PE Laminate"
+                },
+                sequence: defaultSequence
+            },
+            {
+                id: 2,
+                title: "Semilla de Mostaza (Jengibre & Toronjil)",
+                category: "Health & Wellness",
+                images: [placeholders[1], placeholders[2], placeholders[0]],
+                description: "Natural health and supplement branding. Packaged in tincture-style glass dropper bottles with white BOPP or a metallic substrate and opaque inks highlighting elegant gold accents.",
+                tags: ["Health & Supplements", "Glass Dropper"],
+                specs: { 
+                    packaging: "Glass dropper bottles (Tincture style)", 
+                    finishes: "Metallic substrate, opaque inks, gold accents", 
+                    industry: "Natural Health",
+                    colors: "CMYK + Gold Foil",
+                    substrate: "White BOPP / Metallic PET"
+                },
+                sequence: [
+                    { name: "Label Pre-press", detail: "Setting up foil masks and trap lines." },
+                    { name: "Digital/Flexo Printing", detail: "Printing CMYK base on BOPP." },
+                    { name: "Hot Stamping", detail: "Applying gold foil accents." },
+                    { name: "Application", detail: "Automated labeling onto glass bottles." }
+                ]
+            },
+            {
+                id: 3,
+                title: "The H-Town Soda",
+                category: "Food & Beverage",
+                images: [placeholders[2], placeholders[0], placeholders[1]],
+                description: "Urban and cityscape silhouette design interacting beautifully with the bright pink liquid for the Beverage industry. Packaged in a clear glass bottle with a no-label, direct screen print aesthetic.",
+                tags: ["Beverage", "Glass Bottle"],
+                specs: { 
+                    packaging: "Clear glass beverage bottle", 
+                    finishes: "Clear label (no-label look) / Direct screen print", 
+                    industry: "Beverage",
+                    colors: "White + 1 Spot Color",
+                    substrate: "Direct to Glass / Clear BOPP"
+                },
+                sequence: defaultSequence
+            },
+            {
+                id: 4,
+                title: "Salon Pro Naturals",
+                category: "Health & Wellness",
+                images: [placeholders[0], placeholders[2], placeholders[1]],
+                description: "Clean, clinical botanical aesthetic for Haircare and Cosmetics. Packaged in plastic cylinder bottles with disc-top caps and standard White BOPP with a matte or gloss laminate.",
+                tags: ["Cosmetics", "Plastic Cylinder"],
+                specs: { packaging: "Plastic cylinder bottles", finishes: "Matte or gloss laminate", industry: "Haircare", colors: "CMYK", substrate: "White BOPP" },
+                sequence: defaultSequence
+            },
+            {
+                id: 5,
+                title: "Honesta - Vitamina C",
+                category: "Health & Wellness",
+                images: [placeholders[1], placeholders[0], placeholders[2]],
+                description: "Vibrant floating citrus elements contrasting well with a dark bottle for Skincare and Beauty. Packaged in an amber or dark blue glass dropper bottle with a premium apothecary matte white label.",
+                tags: ["Skincare", "Glass Dropper"],
+                specs: { packaging: "Amber/dark blue glass dropper", finishes: "Matte white label", industry: "Skincare", colors: "CMYK + Spot Varnish", substrate: "Textured Estate Paper" },
+                sequence: defaultSequence
+            },
+            {
+                id: 6,
+                title: "Shampoo Bar Coco Vanille",
+                category: "Health & Wellness",
+                images: [placeholders[2], placeholders[1], placeholders[0]],
+                description: "Minimalist and premium eco-friendly cosmetics. Packaged in a rigid folding carton box featuring a matte black background with elegant Gold and Green Hot Stamping or Spot UV.",
+                tags: ["Eco-Friendly", "Rigid Box"],
+                specs: { packaging: "Folding carton / Rigid box", finishes: "Matte black, Gold/Green Hot Stamping, Spot UV", industry: "Cosmetics", colors: "Black + 2 Foils", substrate: "Soft Touch Cardboard" },
+                sequence: defaultSequence
+            },
+            {
+                id: 7,
+                title: "Cere Pax (Omega)",
+                category: "Health & Wellness",
+                images: [placeholders[0], placeholders[1], placeholders[2]],
+                description: "High-energy, futuristic digital background for Supplements and Nootropics. Packaged in a blue PET packer bottle with a glossy finish and a vibrant metallic label substrate.",
+                tags: ["Supplements", "PET Bottle"],
+                specs: { packaging: "Blue PET packer bottle", finishes: "Glossy finish, metallic label", industry: "Supplements", colors: "CMYK + White underprint", substrate: "Metallic BOPP" },
+                sequence: defaultSequence
+            },
+            {
+                id: 8,
+                title: "Monster Cookie Pouch",
+                category: "Food & Beverage",
+                images: [placeholders[1], placeholders[2], placeholders[0]],
+                description: "Playful, character-driven design for the Snack and Edibles industry. Packaged in a stand-up pouch with a matte green finish and a clever product window cut into the monster's mouth.",
+                tags: ["Snacks", "Stand-up Pouch"],
+                specs: { packaging: "Stand-up pouch (Doypack)", finishes: "Matte green, die-cut window", industry: "Snacks", colors: "CMYK + White", substrate: "Clear PET / LLDPE" },
+                sequence: defaultSequence
+            },
+            {
+                id: 9,
+                title: "Candy Kushers",
+                category: "Food & Beverage",
+                images: [placeholders[2], placeholders[0], placeholders[1]],
+                description: "Vibrant, illustrative, youth-targeted branding for Confectionery. Packaged in stand-up pouches using high gloss or metallic BOPP to make the bright candy colors pop.",
+                tags: ["Confectionery", "Stand-up Pouch"],
+                specs: { packaging: "Stand-up pouches", finishes: "High gloss or metallic", industry: "Confectionery", colors: "CMYK + White", substrate: "Metallic BOPP" },
+                sequence: defaultSequence
+            },
+            {
+                id: 10,
+                title: "Flaming Kushers",
+                category: "Food & Beverage",
+                images: [placeholders[0], placeholders[2], placeholders[1]],
+                description: "Intense, fiery aesthetic for the spicy snack industry. Packaged in a stand-up pouch featuring a matte black background with glossy flame and character illustrations.",
+                tags: ["Spicy Snacks", "Stand-up Pouch"],
+                specs: { packaging: "Stand-up pouch", finishes: "Matte black background, spot gloss", industry: "Snacks", colors: "CMYK", substrate: "Matte PET Laminate" },
+                sequence: defaultSequence
+            },
+            {
+                id: 11,
+                title: "Green Queen",
+                category: "Other",
+                images: [placeholders[1], placeholders[0], placeholders[2]],
+                description: "Royal, premium branding for the Herbal, Botanical, or Cannabis industry. Packaged in a stand-up pouch with a matte white finish and metallic green/gold foil stamping on the logo and leaf elements.",
+                tags: ["Botanical", "Premium Packaging"],
+                specs: { packaging: "Stand-up pouch", finishes: "Matte white finish, metallic foil stamping", industry: "Botanical", colors: "CMYK + Green/Gold Foil", substrate: "White MOPP" },
+                sequence: defaultSequence
+            },
+            {
+                id: 12,
+                title: "25+ (Collagen)",
+                category: "Health & Wellness",
+                images: [placeholders[2], placeholders[1], placeholders[0]],
+                description: "Soft, vibrant, and approachable branding for women's health and beauty supplements. Packaged in a pink or white PET packer bottle with a clear or white label featuring vivid floral graphics.",
+                tags: ["Women's Health", "PET Bottle"],
+                specs: { packaging: "PET packer", finishes: "Clear/white label", industry: "Supplements", colors: "CMYK", substrate: "Clear BOPP" },
+                sequence: defaultSequence
+            },
+            {
+                id: 13,
+                title: "Dark Space Creatine",
+                category: "Health & Wellness",
+                images: [placeholders[0], placeholders[1], placeholders[2]],
+                description: "Aggressive, high-contrast, energetic gym aesthetic for Sports nutrition. Packaged in a black plastic tub with a metallic or high-gloss label highlighted by neon green accents.",
+                tags: ["Sports Nutrition", "Plastic Tub"],
+                specs: { packaging: "Black plastic tub", finishes: "Metallic/high-gloss label", industry: "Sports Nutrition", colors: "CMYK + Neon Spot", substrate: "Metallic PP" },
+                sequence: defaultSequence
+            },
+            {
+                id: 14,
+                title: "Belly Drops",
+                category: "Health & Wellness",
+                images: [placeholders[1], placeholders[2], placeholders[0]],
+                description: "Natural, ingredient-focused wellness design. Packaged in a dark glass bottle with a premium metallic cap and a clean, matte white label.",
+                tags: ["Wellness", "Dark Glass"],
+                specs: { packaging: "Dark glass bottle", finishes: "Matte white label, metallic cap", industry: "Supplements", colors: "CMYK", substrate: "Uncoated Paper Label" },
+                sequence: defaultSequence
+            },
+            {
+                id: 15,
+                title: "Premium Anchored",
+                category: "Other",
+                images: [placeholders[2], placeholders[0], placeholders[1]],
+                description: "Vintage, premium typography for the Vape and Extract industry. Packaged in a matte black folding carton box with a blister window insert and intricate Gold Foil stamping.",
+                tags: ["Vape Extracts", "Folding Carton"],
+                specs: { packaging: "Folding carton box", finishes: "Matte black, Gold Foil stamping", industry: "Extracts", colors: "Black + Gold Foil", substrate: "SBS Paperboard" },
+                sequence: defaultSequence
+            },
+            {
+                id: 16,
+                title: "Sweet Cake Mixes",
+                category: "Food & Beverage",
+                images: [placeholders[0], placeholders[2], placeholders[1]],
+                description: "Fun, illustrative, patterned background for baking and confectionery powders. Packaged in stand-up pouches with a matte finish and a frosted or clear circular product window.",
+                tags: ["Baking", "Stand-up Pouch"],
+                specs: { packaging: "Stand-up pouches", finishes: "Matte finish, frosted window", industry: "Baking", colors: "CMYK", substrate: "Matte PET" },
+                sequence: defaultSequence
+            },
+            {
+                id: 17,
+                title: "Deca 300",
+                category: "Health & Wellness",
+                images: [placeholders[1], placeholders[0], placeholders[2]],
+                description: "Clinical, high-voltage aesthetic for Pharmaceutical and Sports supplements. Packaged in a small glass pharmaceutical vial with a standard wrap-around glossy BOPP label.",
+                tags: ["Pharmaceutical", "Glass Vial"],
+                specs: { packaging: "Glass pharmaceutical vial", finishes: "Glossy BOPP label", industry: "Pharmaceutical", colors: "CMYK + PMS Spot", substrate: "Gloss BOPP" },
+                sequence: defaultSequence
+            },
+            {
+                id: 18,
+                title: "Casa Refill",
+                category: "Other",
+                images: [placeholders[2], placeholders[1], placeholders[0]],
+                description: "High-end hospitality and boutique cosmetics with a sleek, spa-like feel. Packaged in amber glass or heavy PET bottles with pump dispensers and minimalist matte black labels.",
+                tags: ["Hospitality", "Pump Bottle"],
+                specs: { packaging: "Amber glass / PET bottles", finishes: "Matte black labels", industry: "Cosmetics", colors: "White Ink", substrate: "Matte Black Vinyl" },
+                sequence: defaultSequence
+            }
+        ];
 
-    <main class="flex-grow pt-32 pb-16">
-        
-        <section class="max-w-7xl mx-auto px-6 lg:px-8 mb-32 mt-12 md:mt-20">
-            <div class="max-w-4xl">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-white mb-8 leading-[1.05]">
-                    Creative professional crafting digital experiences and visual solutions.
-                </h1>
-                <p class="text-lg md:text-2xl text-gray-400 font-light leading-relaxed mb-10 max-w-2xl">
-                    Welcome to my portfolio. Below is a selection of my recent work in packaging, branding, and design.
-                </p>
-                <a href="#work" class="inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-medium text-black bg-white hover:bg-gray-200 transition-colors font-sans">
-                    Explore my work
-                    <i data-lucide="arrow-down" class="ml-2 w-4 h-4"></i>
-                </a>
-            </div>
-        </section>
+        const CATEGORIES = ["All", "Food & Beverage", "Health & Wellness", "Other"];
 
-        <section id="work" class="max-w-7xl mx-auto px-6 lg:px-8 scroll-mt-32">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 lg:gap-y-24">
-                
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800" alt="Mira Mar Productos Marinos" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Mira Mar Productos Marinos - Almeja Chirla</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Clean, nautical branding for the Seafood industry, allowing the product (clams) to be fully visible. Packaged in a flexible pouch featuring a clear window with an opaque white underprint.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Seafood</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Flexible Pouch</span>
-                        </div>
-                    </div>
-                </a>
+        const Icons = {
+            Menu: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>,
+            X: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>,
+            ChevronLeft: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>,
+            ChevronRight: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>,
+            ArrowUpRight: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>,
+            LinkedIn: () => <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>,
+            Twitter: () => <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>,
+            Github: () => <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        };
 
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&q=80&w=800" alt="Semilla de Mostaza" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Semilla de Mostaza (Jengibre & Toronjil)</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Natural health and supplement branding. Packaged in tincture-style glass dropper bottles with white BOPP or a metallic substrate and opaque inks highlighting elegant gold accents.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Health & Supplements</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Glass Dropper</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=800" alt="The H-Town Soda" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">The H-Town Soda</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Urban and cityscape silhouette design interacting beautifully with the bright pink liquid for the Beverage industry. Packaged in a clear glass bottle with a no-label, direct screen print aesthetic.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Beverage</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Glass Bottle</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800" alt="Salon Pro Naturals" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Salon Pro Naturals (Shampoo & Cond.)</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Clean, clinical botanical aesthetic for Haircare and Cosmetics. Packaged in plastic cylinder bottles with disc-top caps and standard White BOPP with a matte or gloss laminate.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Cosmetics</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Plastic Cylinder</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800" alt="Honesta - Vitamina C" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Honesta - Vitamina C</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Vibrant floating citrus elements contrasting well with a dark bottle for Skincare and Beauty. Packaged in an amber or dark blue glass dropper bottle with a premium apothecary matte white label.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Skincare</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Glass Dropper</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=800" alt="Shampoo Bar Coco Vanille" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Shampoo Bar Coco Vanille</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Minimalist and premium eco-friendly cosmetics. Packaged in a rigid folding carton box featuring a matte black background with elegant Gold and Green Hot Stamping or Spot UV.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Eco-Friendly</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Rigid Box</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&q=80&w=800" alt="Cere Pax" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Cere Pax (Omega)</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">High-energy, futuristic digital background for Supplements and Nootropics. Packaged in a blue PET packer bottle with a glossy finish and a vibrant metallic label substrate.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Supplements</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">PET Bottle</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800" alt="Monster Cookie Pouch" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Monster Cookie Pouch</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Playful, character-driven design for the Snack and Edibles industry. Packaged in a stand-up pouch with a matte green finish and a clever product window cut into the monster's mouth.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Snacks</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Stand-up Pouch</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=800" alt="Candy Kushers" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Candy Kushers (Blue & Pink)</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Vibrant, illustrative, youth-targeted branding for Confectionery. Packaged in stand-up pouches using high gloss or metallic BOPP to make the bright candy colors pop.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Confectionery</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Stand-up Pouch</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&q=80&w=800" alt="Flaming Kushers" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Flaming Kushers</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Intense, fiery aesthetic for the spicy snack industry. Packaged in a stand-up pouch featuring a matte black background with glossy flame and character illustrations.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Spicy Snacks</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Stand-up Pouch</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800" alt="Green Queen" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Green Queen</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Royal, premium branding for the Herbal, Botanical, or Cannabis industry. Packaged in a stand-up pouch with a matte white finish and metallic green/gold foil stamping on the logo and leaf elements.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Botanical</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Premium Packaging</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=800" alt="25+ Collagen" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">25+ (Collagen/Supplements)</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Soft, vibrant, and approachable branding for women's health and beauty supplements. Packaged in a pink or white PET packer bottle with a clear or white label featuring vivid floral graphics.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Women's Health</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">PET Bottle</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&q=80&w=800" alt="Dark Space Creatine" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Dark Space Creatine</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Aggressive, high-contrast, energetic gym aesthetic for Sports nutrition. Packaged in a black plastic tub with a metallic or high-gloss label highlighted by neon green accents.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Sports Nutrition</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Plastic Tub</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800" alt="Belly Drops" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Belly Drops</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Natural, ingredient-focused wellness design. Packaged in a dark glass bottle with a premium metallic cap and a clean, matte white label.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Wellness</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Dark Glass</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=800" alt="Premium Anchored Cartridge" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Premium Anchored Cartridge</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Vintage, premium typography for the Vape and Extract industry. Packaged in a matte black folding carton box with a blister window insert and intricate Gold Foil stamping.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Vape Extracts</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Folding Carton</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800" alt="Sweet Cake Mixes" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Sweet Cake Mixes</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Fun, illustrative, patterned background for baking and confectionery powders. Packaged in stand-up pouches with a matte finish and a frosted or clear circular product window.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Baking</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Stand-up Pouch</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=800" alt="Deca 300" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Deca 300</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Clinical, high-voltage aesthetic for Pharmaceutical and Sports supplements. Packaged in a small glass pharmaceutical vial with a standard wrap-around glossy BOPP label.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Pharmaceutical</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Glass Vial</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="group block cursor-pointer">
-                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800" alt="Casa Refill" class="project-image w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-medium text-white mb-2">Casa Refill (Hand & Body Lotion)</h3>
-                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">High-end hospitality and boutique cosmetics with a sleek, spa-like feel. Packaged in amber glass or heavy PET bottles with pump dispensers and minimalist matte black labels.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Hospitality</span>
-                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Pump Bottle</span>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </section>
-
-    </main>
-
-    <footer id="contact" class="bg-[#0a0a0a] border-t border-white/5 mt-24 scroll-mt-20">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-            <div class="md:flex md:items-center md:justify-between">
-                <div class="mb-12 md:mb-0">
-                    <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6">Let's work together.</h2>
-                    <p class="text-gray-400 mb-8 max-w-md text-lg font-light font-sans">I am always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
-                    <a href="mailto:hello@example.com" class="inline-flex items-center text-xl font-medium text-white hover:text-gray-400 transition-colors border-b border-white/20 pb-1 hover:border-gray-400 font-sans">
-                        Get in touch
-                        <i data-lucide="arrow-up-right" class="ml-2 w-5 h-5"></i>
-                    </a>
-                </div>
-                
-                <div class="flex space-x-8">
-                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
-                        <span class="sr-only">LinkedIn</span>
-                        <i data-lucide="linkedin" class="w-7 h-7"></i>
-                    </a>
-                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
-                        <span class="sr-only">Twitter</span>
-                        <i data-lucide="twitter" class="w-7 h-7"></i>
-                    </a>
-                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
-                        <span class="sr-only">GitHub</span>
-                        <i data-lucide="github" class="w-7 h-7"></i>
-                    </a>
-                </div>
-            </div>
+        // --- Image Slider Component (Interactive Before/After) ---
+        const ImageSlider = ({ images }) => {
+            const [sliderPos, setSliderPos] = useState(50);
             
-            <div class="mt-20 border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 font-light font-sans">
-                <p class="text-sm">
-                    &copy; <span id="year"></span> Christian Isais. All rights reserved.
-                </p>
-                <p class="text-sm mt-4 md:mt-0">
-                    Independent Digital Designer
-                </p>
-            </div>
-        </div>
-    </footer>
+            // For the split view, images[0] acts as the Final Render, and images[1] acts as the Pre-Press Dieline.
+            const finalImage = images[0];
+            const dielineImage = images[1] || images[0];
 
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-        
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
+            const handleSliderChange = (e) => {
+                setSliderPos(e.target.value);
+            };
+
+            return (
+                <div className="relative w-full h-[450px] md:h-full bg-[#1a1a1a] overflow-hidden group select-none">
+                    {/* Underneath Image: Pre-Press Dieline */}
+                    <img 
+                        src={dielineImage} 
+                        alt="Pre-Press Dieline"
+                        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                    />
+
+                    {/* Top Image: Final Render (Dynamically Clipped) */}
+                    <img 
+                        src={finalImage} 
+                        alt="Final Render"
+                        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                        style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
+                    />
+
+                    {/* Invisible Range Input for Native Dragging */}
+                    <input 
+                        type="range" 
+                        min="0" max="100" 
+                        value={sliderPos} 
+                        onChange={handleSliderChange}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20 m-0"
+                    />
+
+                    {/* Custom Visual Slider Handle */}
+                    <div 
+                        className="absolute top-0 bottom-0 w-[2px] bg-white pointer-events-none z-10 flex items-center justify-center"
+                        style={{ left: `${sliderPos}%`, transform: 'translateX(-50%)' }}
+                    >
+                        <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.6)] text-black">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="m9 18-6-6 6-6"/>
+                                <path d="m15 18 6-6-6-6"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    {/* Floating Labels */}
+                    <div className="absolute top-6 left-6 z-10 pointer-events-none transition-opacity duration-300" style={{ opacity: sliderPos > 25 ? 1 : 0 }}>
+                        <span className="bg-black/60 backdrop-blur-md text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border border-white/10 font-sans shadow-lg">
+                            Final Render
+                        </span>
+                    </div>
+                    <div className="absolute top-6 right-6 z-10 pointer-events-none transition-opacity duration-300" style={{ opacity: sliderPos < 75 ? 1 : 0 }}>
+                        <span className="bg-white/90 backdrop-blur-md text-black text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border border-black/10 font-sans font-semibold shadow-lg">
+                            Pre-Press
+                        </span>
+                    </div>
+                </div>
+            );
+        };
+
+        const ProjectModal = ({ project, onClose }) => {
+            if (!project) return null;
+
+            useEffect(() => {
+                document.body.style.overflow = 'hidden';
+                return () => { document.body.style.overflow = 'unset'; };
+            }, []);
+
+            return (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 modal-overlay bg-black/90 backdrop-blur-md" onClick={onClose}>
+                    <div 
+                        className="bg-[#121212] border border-white/10 rounded-2xl w-full max-w-6xl h-[90vh] flex flex-col md:flex-row overflow-hidden modal-content shadow-2xl relative"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button 
+                            onClick={onClose}
+                            className="absolute top-4 right-4 bg-black/50 hover:bg-black p-2 rounded-full text-white transition-colors z-[110] backdrop-blur-sm border border-white/10"
+                        >
+                            <Icons.X />
+                        </button>
+                        
+                        {/* Left Side: Thumbnail Gallery Slider */}
+                        <div className="w-full md:w-1/2 h-auto md:h-full shrink-0 bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/5">
+                            <ImageSlider images={project.images} />
+                        </div>
+                        
+                        {/* Right Side: Scrollable Details */}
+                        <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col overflow-y-auto no-scrollbar bg-[#121212]">
+                            <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">{project.category}</span>
+                            <h2 className="text-3xl md:text-4xl font-serif font-medium text-white mb-4 leading-tight">{project.title}</h2>
+                            <p className="text-gray-400 font-light mb-10 leading-relaxed font-sans">
+                                {project.description}
+                            </p>
+                            
+                            {/* Technical Specifications Layout */}
+                            <div className="border border-white/10 rounded-lg p-6 bg-white/[0.02] mb-8">
+                                <h4 className="text-sm font-semibold text-white uppercase tracking-widest mb-6 font-sans flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                                    Technical Specifications
+                                </h4>
+                                
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-4">
+                                    <div>
+                                        <p className="text-xs text-gray-500 uppercase font-sans mb-1">Packaging Format</p>
+                                        <p className="text-sm text-gray-300 font-mono">{project.specs.packaging}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-500 uppercase font-sans mb-1">Substrate / Material</p>
+                                        <p className="text-sm text-gray-300 font-mono">{project.specs.substrate}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-500 uppercase font-sans mb-1">Color Space</p>
+                                        <div className="flex items-center gap-2">
+                                            <div className="flex gap-1">
+                                                <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
+                                                <span className="w-2 h-2 rounded-full bg-pink-500"></span>
+                                                <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
+                                            </div>
+                                            <p className="text-sm text-gray-300 font-mono">{project.specs.colors}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-500 uppercase font-sans mb-1">Special Finishes</p>
+                                        <p className="text-sm text-gray-300 font-mono">{project.specs.finishes}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Production Sequence Layout */}
+                            <div>
+                                <h4 className="text-sm font-semibold text-white uppercase tracking-widest mb-6 font-sans flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                                    Production Sequence
+                                </h4>
+                                <div className="space-y-0">
+                                    {project.sequence.map((step, index) => (
+                                        <div key={index} className="flex items-start gap-4">
+                                            {/* Timeline Node */}
+                                            <div className="flex flex-col items-center mt-1">
+                                                <div className="w-3 h-3 rounded-full border-2 border-[#121212] bg-gray-400 outline outline-1 outline-white/20"></div>
+                                                {index !== project.sequence.length - 1 && (
+                                                    <div className="w-px h-12 bg-white/10 my-1"></div>
+                                                )}
+                                            </div>
+                                            {/* Step Content */}
+                                            <div className="pb-4">
+                                                <p className="text-sm text-white font-mono">{step.name}</p>
+                                                <p className="text-xs text-gray-500 font-mono mt-1">{step.detail}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [activeCategory, setActiveCategory] = useState("All");
+            const [selectedProject, setSelectedProject] = useState(null);
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+            const filteredProjects = activeCategory === "All" 
+                ? projectData 
+                : projectData.filter(p => p.category === activeCategory);
+
+            return (
+                <React.Fragment>
+                    {/* Header */}
+                    <header className="fixed w-full top-0 bg-[#0a0a0a]/80 backdrop-blur-md z-50 border-b border-white/5">
+                        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                            <div className="flex justify-between items-center h-24">
+                                <a href="#" className="text-3xl font-serif tracking-wider text-white hover:text-gray-400 transition-colors">
+                                    isaiz_
+                                </a>
+
+                                <div className="hidden md:flex items-center px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+                                    <span className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+                                    <span className="text-xs font-medium text-gray-300 font-sans">Available for work</span>
+                                </div>
+                                
+                                <nav className="hidden md:flex space-x-8">
+                                    <a href="#work" className="text-sm font-medium text-white hover:text-gray-400 transition-colors font-sans">Work</a>
+                                    <a href="#about" className="text-sm font-medium text-gray-400 hover:text-white transition-colors font-sans">About</a>
+                                    <a href="#contact" className="text-sm font-medium text-gray-400 hover:text-white transition-colors font-sans">Contact</a>
+                                </nav>
+
+                                <button 
+                                    className="md:hidden p-2 text-gray-400 hover:text-white focus:outline-none" 
+                                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                >
+                                    <Icons.Menu />
+                                </button>
+                            </div>
+                        </div>
+
+                        {mobileMenuOpen && (
+                            <div className="md:hidden bg-[#121212] border-t border-white/5 px-6 py-6 space-y-6 shadow-lg">
+                                <div className="flex items-center px-3 py-2 rounded-full bg-white/5 border border-white/10 w-fit">
+                                    <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
+                                    <span className="text-xs font-medium text-gray-300 font-sans">Available for work</span>
+                                </div>
+                                <a href="#work" className="block text-lg font-medium text-white font-sans" onClick={() => setMobileMenuOpen(false)}>Work</a>
+                                <a href="#about" className="block text-lg font-medium text-gray-400 font-sans" onClick={() => setMobileMenuOpen(false)}>About</a>
+                                <a href="#contact" className="block text-lg font-medium text-gray-400 font-sans" onClick={() => setMobileMenuOpen(false)}>Contact</a>
+                            </div>
+                        )}
+                    </header>
+
+                    {/* Main Content */}
+                    <main className="flex-grow pt-32 pb-16">
+                        
+                        {/* Hero */}
+                        <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-24 mt-12 md:mt-20">
+                            <div className="max-w-4xl">
+                                <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-white mb-8 leading-[1.05] font-serif">
+                                    Creative professional crafting digital experiences and visual solutions.
+                                </h1>
+                                <p className="text-lg md:text-2xl text-gray-400 font-light leading-relaxed mb-10 max-w-2xl font-sans">
+                                    Welcome to my interactive gallery. Select any project to view detailed packaging specifications, image galleries, and production sequences.
+                                </p>
+                            </div>
+                        </section>
+
+                        {/* Interactive Gallery Section */}
+                        <section id="work" className="max-w-7xl mx-auto px-6 lg:px-8 scroll-mt-32">
+                            
+                            {/* Filter Buttons */}
+                            <div className="flex flex-wrap gap-3 mb-16">
+                                {CATEGORIES.map(category => (
+                                    <button
+                                        key={category}
+                                        onClick={() => setActiveCategory(category)}
+                                        className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 font-sans ${
+                                            activeCategory === category
+                                                ? "bg-white text-black"
+                                                : "bg-transparent text-gray-400 border border-white/20 hover:border-white/60 hover:text-white"
+                                        }`}
+                                    >
+                                        {category}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Project Grid */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 lg:gap-y-24">
+                                {filteredProjects.map(project => (
+                                    <div 
+                                        key={project.id} 
+                                        className="group block cursor-pointer"
+                                        onClick={() => setSelectedProject(project)}
+                                    >
+                                        <div className="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                                            <img 
+                                                src={project.images[0]} 
+                                                alt={project.title} 
+                                                className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105" 
+                                            />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-2xl font-medium text-white mb-2 font-serif">{project.title}</h3>
+                                            <p className="text-gray-400 mb-4 line-clamp-2 font-light font-sans">{project.description}</p>
+                                            <div className="flex flex-wrap gap-4">
+                                                {project.tags.map(tag => (
+                                                    <span key={tag} className="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">{tag}</span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+                    </main>
+
+                    {/* Footer */}
+                    <footer id="contact" className="bg-[#0a0a0a] border-t border-white/5 mt-24 scroll-mt-20">
+                        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+                            <div className="md:flex md:items-center md:justify-between">
+                                <div className="mb-12 md:mb-0">
+                                    <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6 font-serif">Let's work together.</h2>
+                                    <p className="text-gray-400 mb-8 max-w-md text-lg font-light font-sans">I am always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
+                                    <a href="mailto:hello@example.com" className="inline-flex items-center text-xl font-medium text-white hover:text-gray-400 transition-colors border-b border-white/20 pb-1 hover:border-gray-400 font-sans">
+                                        Get in touch
+                                        <span className="ml-2"><Icons.ArrowUpRight /></span>
+                                    </a>
+                                </div>
+                                
+                                <div className="flex space-x-8">
+                                    <a href="#" className="text-gray-500 hover:text-white transition-colors"><Icons.LinkedIn /></a>
+                                    <a href="#" className="text-gray-500 hover:text-white transition-colors"><Icons.Twitter /></a>
+                                    <a href="#" className="text-gray-500 hover:text-white transition-colors"><Icons.Github /></a>
+                                </div>
+                            </div>
+                            
+                            <div className="mt-20 border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 font-light font-sans">
+                                <p className="text-sm">
+                                    &copy; {new Date().getFullYear()} Christian Isais. All rights reserved.
+                                </p>
+                                <p className="text-sm mt-4 md:mt-0 flex items-center gap-4">
+                                    <span className="font-mono text-xs flex gap-1 items-center"><span className="w-2 h-2 bg-cyan-500 rounded-full"></span> Cyan</span>
+                                    <span className="font-mono text-xs flex gap-1 items-center"><span className="w-2 h-2 bg-pink-500 rounded-full"></span> Magenta</span>
+                                    <span className="font-mono text-xs flex gap-1 items-center"><span className="w-2 h-2 bg-yellow-400 rounded-full"></span> Yellow</span>
+                                    <span className="font-mono text-xs flex gap-1 items-center"><span className="w-2 h-2 border border-gray-500 rounded-full"></span> Black</span>
+                                </p>
+                            </div>
+                        </div>
+                    </footer>
+
+                    {/* Interactive Modal */}
+                    <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+                </React.Fragment>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>

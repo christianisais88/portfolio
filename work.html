@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christian Isais | Technical Designer & AI Innovator</title>
+    
+    <!-- Fonts: Inter for UI, JetBrains Mono for Technical Specs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        print: {
+                            cyan: '#00AEEF',
+                            magenta: '#EC008C',
+                            yellow: '#FFF200',
+                            black: '#231F20',
+                            dieline: '#EC008C', 
+                            crease: '#00AEEF',  
+                        },
+                        ui: {
+                            bg: '#F8F9FA',
+                            panel: '#FFFFFF',
+                            border: '#E5E7EB',
+                            text: '#1F2937',
+                            muted: '#6B7280'
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "url(\"data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 0 L 0 0 0 20' fill='none' stroke='%23e5e7eb' stroke-width='0.5'/%3E%3C/svg%3E\")",
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { background-color: #F8F9FA; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .slider-thumb::-webkit-slider-thumb {
+            appearance: none;
+            width: 4px;
+            height: 100%;
+            background: white;
+            cursor: ew-resize;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        
+        .slider-thumb::-moz-range-thumb {
+            width: 4px;
+            height: 100%;
+            background: white;
+            cursor: ew-resize;
+            border: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .ai-gradient-text {
+            background: linear-gradient(to right, #EC008C, #00AEEF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="text-ui-text font-sans antialiased bg-grid-pattern selection:bg-print-cyan selection:text-white">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // --- GEMINI API HELPERS ---
+        const apiKey = ""; // API key provided by environment
+
+        const callGeminiText = async (prompt, systemInstruction = "") => {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                ...(systemInstruction && { systemInstruction: { parts: [{ text: systemInstruction }] } })
+            };
+
+            const retries = [1000, 2000, 4000, 8000, 16000];
+            for (let i = 0; i < retries.length + 1; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                } catch (error) {
+                    if (i === retries.length) throw error;
+                    await new Promise(r => setTimeout(r, retries[i]));
+                }
+            }
+        };
+
+        const callGeminiStructured = async (prompt, schema) => {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: "You are an expert Technical Packaging Designer." }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: schema
+                }
+            };
+
+            const retries = [1000, 2000, 4000, 8000, 16000];
+            for (let i = 0; i < retries.length + 1; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    return JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text || "{}");
+                } catch (error) {
+                    if (i === retries.length) throw error;
+                    await new Promise(r => setTimeout(r, retries[i]));
+                }
+            }
+        };
+
+        // --- MOCK DATA ---
+        const portfolioProjects = [
+            {
+                id: 1,
+                title: "Premium Botanical Gin",
+                category: "Primary & Secondary Packaging",
+                client: "Highland Spirits",
+                description: "Developed the structural dieline and full pre-press files for a luxury gin brand. The challenge was ensuring precise registration across multiple passes of foil and emboss on heavily textured uncoated stock.",
+                finalImage: "https://images.unsplash.com/photo-1584227351659-42b7c6999320?auto=format&fit=crop&q=80&w=1200", 
+                dielineImage: "https://images.unsplash.com/photo-1616628188550-808682f3926d?auto=format&fit=crop&q=80&w=1200", 
+                specs: {
+                    dimensions: "85mm (W) x 85mm (D) x 210mm (H)",
+                    substrate: "350gsm Neenah Classic Crest Solar White (Uncoated)",
+                    printMethod: "4-color Offset (CMYK) + 1 Pantone (PMS 356 U)",
+                },
+                finishes: [
+                    { name: "Kurz Gold Foil 220", type: "Foil Stamping" },
+                    { name: "Multi-level Sculpted Emboss", type: "Embossing" },
+                    { name: "Soft Touch AQ Coating", type: "Coating" }
+                ],
+                layers: [
+                    { label: "1. Substrate", detail: "350gsm Uncoated Board" },
+                    { label: "2. Ink Pass 1", detail: "CMYK Offset" },
+                    { label: "3. Ink Pass 2", detail: "PMS 356 U (Brand Green)" },
+                    { label: "4. Coating", detail: "Soft Touch Aqueous" },
+                    { label: "5. Finish 1", detail: "Hot Foil Stamping (Gold)" },
+                    { label: "6. Finish 2", detail: "Blind Emboss" },
+                    { label: "7. Finishing", detail: "Die Cut & Glue" },
+                ]
+            },
+            {
+                id: 4,
+                title: "Chupa Panza Supplement",
+                category: "Primary Label & Shrink Sleeve",
+                client: "Pranahki Natural",
+                description: "Bridging aesthetics and print mechanics, this packaging system uses 'metabolic' color theory and kinetic typography. The main body utilizes a Metallic BOPP label to provide premium shine and durability, requiring a precision-mapped opaque white understrike to ensure the vibrant CMYK gradients remain punchy and opaque over the metallic substrate. For the cap seal, a PETG shrink sleeve provides tamper-evident product security and seamless brand reinforcement. The pre-press process required critical anamorphic distortion mapping—intentionally warping the 2D artwork in reverse so it conforms perfectly to the bottle's compound curves during heat tunnel shrink formatting.",
+                finalImage: "https://images.unsplash.com/photo-1584308666744-24d5e4b2dcdb?auto=format&fit=crop&q=80&w=1200", 
+                dielineImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200", 
+                specs: {
+                    dimensions: "200cc Round Packer",
+                    substrate: "Metallic BOPP (Body) + PETG Shrink Film (Neckband)",
+                    printMethod: "UV Flexo (CMYK + Double Hit Opaque White)",
+                },
+                finishes: [
+                    { name: "White Support Mapping", type: "Understrike" },
+                    { name: "Anamorphic Distortion", type: "Pre-Press" },
+                    { name: "Tamper-Evident Perf", type: "Security" }
+                ],
+                layers: [
+                    { label: "1. Substrates", detail: "Metallic BOPP & PETG Film" },
+                    { label: "2. Base Plate", detail: "Opaque White Support Silhouette" },
+                    { label: "3. Print", detail: "CMYK High-Saturation Gradients" },
+                    { label: "4. Varnish", detail: "Spot Matte over Metallic Base" },
+                    { label: "5. Finishing", detail: "Die Cut / Seam & Perforate" },
+                    { label: "6. Application", detail: "Heat Tunnel Shrink Formatting" },
+                ]
+            },
+            {
+                id: 5,
+                title: "Unike Nutra: Dual-Tier Creatine",
+                category: "Primary Packaging & Finishing Strategy",
+                client: "Unike Nutra",
+                description: "Engineered a dual-SKU pressure-sensitive label system for Unike Nutra's 200 Mesh Creatine Monohydrate. The project required executing two distinct environmental targets: 'The Onyx Collection' for hardcore gyms and 'The Arctic Collection' for clinical pharmacies. The Onyx tier leverages a Silver Metallized BOPP substrate with a precision-mapped opaque white blockout. This allowed for striking metallic typography and gold foil accents to punch through a dense, soft-touch black background. Pre-press workflow required aggressive trapping rules to ensure the signature Unike Green brand mark held perfect registration against the rich black flood coat without bleeding.",
+                finalImage: "https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&q=80&w=1200", 
+                dielineImage: "https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?auto=format&fit=crop&q=80&w=1200", 
+                specs: {
+                    dimensions: "Wide-Mouth HDPE Tub (Full Wrap Label)",
+                    substrate: "Silver Metallized BOPP (Onyx) / White BOPP (Arctic)",
+                    printMethod: "UV Flexo (CMYK + Unike Green Spot + Dense Black)",
+                },
+                finishes: [
+                    { name: "Gold Hot Foil Stamping", type: "Foil" },
+                    { name: "Soft-Touch Laminate", type: "Coating" },
+                    { name: "Metallic Typography", type: "Substrate Reveal" }
+                ],
+                layers: [
+                    { label: "1. Substrate", detail: "Silver Metallized BOPP Film" },
+                    { label: "2. Base Plate", detail: "Opaque White Blockout (Protecting non-metallic zones)" },
+                    { label: "3. Print", detail: "Rich Black Flood & Spot Unike Green" },
+                    { label: "4. Lamination", detail: "Soft-Touch Matte OPP Film" },
+                    { label: "5. Finish", detail: "Rotary Gold Hot Foil Accents" },
+                    { label: "6. Application", detail: "Pressure-Sensitive Wraparound" },
+                ]
+            }
+        ];
+
+        // --- COMPONENTS ---
+
+        const Icon = ({ name, size = 20, className = "" }) => {
+            const iconRef = useRef(null);
+            useEffect(() => {
+                if (window.lucide && iconRef.current) {
+                    window.lucide.createIcons({
+                        icons: { [name]: window.lucide.icons[name] },
+                        nameAttr: 'data-lucide',
+                        attrs: { class: className, width: size, height: size }
+                    });
+                }
+            }, [name, className, size]);
+            return <i ref={iconRef} data-lucide={name}></i>;
+        };
+
+        const Header = () => (
+            <header className="sticky top-0 z-40 bg-ui-bg/80 backdrop-blur-md border-b border-ui-border">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                    <div>
+                        <h1 className="text-xl font-bold tracking-tight">CHRISTIAN ISAIS</h1>
+                        <p className="text-sm text-ui-muted font-mono flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-print-cyan"></span>
+                            Technical Designer
+                        </p>
+                    </div>
+                    <nav className="flex gap-6">
+                        <a href="#" className="text-sm font-medium hover:text-print-cyan transition-colors">Work</a>
+                        <a href="#ai-tools" className="text-sm font-medium hover:text-print-magenta transition-colors flex items-center gap-1">
+                            <Icon name="Sparkles" size={14} /> AI Tools
+                        </a>
+                        <a href="#" className="text-sm font-medium hover:text-print-cyan transition-colors">Contact</a>
+                    </nav>
+                </div>
+            </header>
+        );
+
+        const ImageCompareSlider = ({ finalImage, dielineImage }) => {
+            const [sliderPos, setSliderPos] = useState(50);
+            return (
+                <div className="relative w-full h-[500px] bg-white rounded-lg overflow-hidden border border-ui-border select-none group">
+                    <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+                        <img src={dielineImage} alt="Pre-press Dieline" className="w-full h-full object-cover" draggable="false" />
+                        <div className="absolute top-4 right-4 bg-black/70 text-white font-mono text-xs px-2 py-1 rounded backdrop-blur">
+                            PRE-PRESS DIELINE
+                        </div>
+                    </div>
+                    <div className="absolute inset-0 bg-white" style={{ clipPath: `polygon(0 0, ${sliderPos}% 0, ${sliderPos}% 100%, 0 100%)` }}>
+                        <img src={finalImage} alt="Final Render" className="w-full h-full object-cover" draggable="false" />
+                        <div className="absolute top-4 left-4 bg-black/70 text-white font-mono text-xs px-2 py-1 rounded backdrop-blur">
+                            FINAL RENDER
+                        </div>
+                    </div>
+                    <div className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize flex items-center justify-center drop-shadow-md" style={{ left: `calc(${sliderPos}% - 2px)` }}>
+                        <div className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center border border-gray-200">
+                            <Icon name="ArrowLeftRight" size={14} className="text-gray-500" />
+                        </div>
+                    </div>
+                    <input type="range" min="0" max="100" value={sliderPos} onChange={(e) => setSliderPos(e.target.value)} className="slider-thumb absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-10" />
+                </div>
+            );
+        };
+
+        const SpecItem = ({ label, value }) => (
+            <div className="mb-4">
+                <dt className="text-xs font-mono text-ui-muted uppercase tracking-wider mb-1">{label}</dt>
+                <dd className="text-sm font-medium text-ui-text">{value}</dd>
+            </div>
+        );
+
+        const ClientTranslator = ({ description, finishes }) => {
+            const [translation, setTranslation] = useState("");
+            const [isTranslating, setIsTranslating] = useState(false);
+
+            const handleTranslate = async () => {
+                setIsTranslating(true);
+                const prompt = `Translate the following highly technical packaging description into a benefit-driven, easy-to-understand explanation for a non-technical brand client. Focus on WHY these choices matter for their brand presence and product quality, avoiding jargon. 
+                Technical Details: ${description}
+                Finishes: ${finishes.map(f => f.name).join(', ')}`;
+                
+                try {
+                    const res = await callGeminiText(prompt, "You are a friendly, expert packaging design consultant talking to a client.");
+                    setTranslation(res);
+                } catch (e) {
+                    setTranslation("Translation failed. Please try again later.");
+                }
+                setIsTranslating(false);
+            };
+
+            return (
+                <div className="mt-6 bg-rose-50 border border-rose-100 rounded-lg p-4">
+                    {!translation && !isTranslating ? (
+                        <div className="flex items-start justify-between gap-4">
+                            <div>
+                                <h4 className="text-sm font-bold text-print-magenta flex items-center gap-1 mb-1">
+                                    <Icon name="Bot" size={16} /> Bridging the Gap
+                                </h4>
+                                <p className="text-xs text-gray-600">Need to explain this structural engineering to a brand manager? Use the AI Translator to convert these specs into client-friendly benefits.</p>
+                            </div>
+                            <button onClick={handleTranslate} className="shrink-0 bg-print-magenta text-white text-xs font-bold px-3 py-2 rounded shadow-sm hover:bg-pink-600 transition flex items-center gap-1">
+                                ✨ Translate
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="animate-fade-in">
+                            <h4 className="text-sm font-bold text-print-magenta flex items-center gap-1 mb-2">
+                                <Icon name="Sparkles" size={16} /> Client-Friendly Explanation
+                            </h4>
+                            {isTranslating ? (
+                                <div className="flex gap-1 items-center text-xs text-gray-500 font-mono">
+                                    <Icon name="Loader2" size={14} className="animate-spin" /> Generating...
+                                </div>
+                            ) : (
+                                <p className="text-sm text-gray-800 leading-relaxed">{translation}</p>
+                            )}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const ProjectModal = ({ project, onClose }) => {
+            if (!project) return null;
+
+            return (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose}></div>
+                    
+                    <div className="relative bg-ui-bg w-full max-w-6xl max-h-[90vh] rounded-xl shadow-2xl flex flex-col md:flex-row overflow-hidden border border-ui-border">
+                        <button onClick={onClose} className="absolute top-4 right-4 z-50 w-8 h-8 bg-white/80 backdrop-blur rounded-full flex items-center justify-center shadow hover:bg-white hover:text-print-magenta transition-colors">
+                            <Icon name="X" size={18} />
+                        </button>
+
+                        <div className="w-full md:w-3/5 p-6 bg-white border-b md:border-b-0 md:border-r border-ui-border overflow-y-auto">
+                            <div className="mb-6">
+                                <h2 className="text-2xl font-bold mb-1">{project.title}</h2>
+                                <p className="font-mono text-xs text-print-cyan uppercase tracking-wide">{project.category}</p>
+                            </div>
+                            
+                            <div className="mb-4">
+                                <ImageCompareSlider finalImage={project.finalImage} dielineImage={project.dielineImage} />
+                                <p className="text-xs text-center text-ui-muted mt-3 font-mono">
+                                    <Icon name="MousePointer2" size={12} className="inline mr-1" />
+                                    Drag slider to compare structural dieline with final render
+                                </p>
+                            </div>
+
+                            <div className="mt-8">
+                                <h3 className="text-sm font-bold uppercase tracking-wider mb-3">Technical Brief</h3>
+                                <p className="text-sm text-gray-600 leading-relaxed">{project.description}</p>
+                                
+                                {/* AI FEATURE 1 */}
+                                <ClientTranslator description={project.description} finishes={project.finishes} />
+                            </div>
+                        </div>
+
+                        <div className="w-full md:w-2/5 p-6 bg-ui-bg overflow-y-auto">
+                            <div className="flex items-center gap-2 mb-6 pb-4 border-b border-ui-border">
+                                <Icon name="FileText" size={20} className="text-ui-muted" />
+                                <h3 className="text-lg font-bold">Technical Specifications</h3>
+                            </div>
+
+                            <dl>
+                                <SpecItem label="Client" value={project.client} />
+                                <SpecItem label="Dimensions" value={project.specs.dimensions} />
+                                <SpecItem label="Substrate / Material" value={project.specs.substrate} />
+                                <SpecItem label="Print Method" value={project.specs.printMethod} />
+                            </dl>
+
+                            <div className="mt-6">
+                                <dt className="text-xs font-mono text-ui-muted uppercase tracking-wider mb-3">Finishes & Treatments</dt>
+                                <div className="flex flex-wrap gap-2">
+                                    {project.finishes.map((finish, idx) => (
+                                        <span key={idx} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white border border-gray-200 text-xs font-medium shadow-sm">
+                                            <Icon name="Wand2" size={12} className="text-gray-400" />
+                                            {finish.name}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="mt-8 p-5 bg-white border border-ui-border rounded-lg shadow-sm">
+                                <div className="flex items-center gap-2 mb-4">
+                                    <Icon name="Layers" size={16} className="text-print-cyan" />
+                                    <h4 className="text-xs font-bold uppercase tracking-wider">Production Build Sequence</h4>
+                                </div>
+                                <ul className="relative border-l-2 border-gray-200 ml-2 space-y-4">
+                                    {project.layers.map((layer, idx) => (
+                                        <li key={idx} className="relative pl-6">
+                                            <span className="absolute -left-[9px] top-1 w-4 h-4 bg-white border-2 border-gray-300 rounded-full"></span>
+                                            <p className="text-xs font-mono font-bold text-gray-800">{layer.label}</p>
+                                            <p className="text-sm text-gray-500">{layer.detail}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const SpecArchitect = () => {
+            const [prompt, setPrompt] = useState("");
+            const [spec, setSpec] = useState(null);
+            const [loading, setLoading] = useState(false);
+
+            const handleGenerate = async () => {
+                if(!prompt) return;
+                setLoading(true);
+                setSpec(null);
+                
+                const schema = {
+                    type: "OBJECT",
+                    properties: {
+                        title: { type: "STRING", description: "A creative, professional title for the packaging" },
+                        dimensions: { type: "STRING", description: "Estimated physical dimensions" },
+                        substrate: { type: "STRING", description: "Highly technical substrate/material choice" },
+                        printMethod: { type: "STRING", description: "Print method (e.g., UV Flexo, Offset)" },
+                        finishes: { 
+                            type: "ARRAY", 
+                            items: { type: "STRING" }, 
+                            description: "List of 2-4 premium finishes (e.g., Foil, Spot UV, Emboss)" 
+                        },
+                        layers: {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    label: { type: "STRING", description: "E.g., '1. Substrate', '2. Print'" },
+                                    detail: { type: "STRING", description: "Technical detail for that layer" }
+                                }
+                            }
+                        }
+                    },
+                    required: ["title", "dimensions", "substrate", "printMethod", "finishes", "layers"]
+                };
+
+                const fullPrompt = `Based on this client brief: "${prompt}", engineer a professional pre-press packaging specification. Make the material and printing choices highly realistic and appropriate for the product type.`;
+
+                try {
+                    const result = await callGeminiStructured(fullPrompt, schema);
+                    setSpec(result);
+                } catch (e) {
+                    alert("Failed to generate specifications. Please try again.");
+                }
+                setLoading(false);
+            };
+
+            return (
+                <div id="ai-tools" className="mt-24 border-t border-ui-border pt-16 mb-16">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="text-center mb-10">
+                            <h2 className="text-3xl font-bold mb-4 ai-gradient-text flex items-center justify-center gap-2">
+                                <Icon name="Sparkles" size={28} className="text-print-magenta" />
+                                AI Spec Architect
+                            </h2>
+                            <p className="text-ui-muted max-w-xl mx-auto">
+                                Test my AI integration. Describe a theoretical product below, and the Gemini-powered engine will automatically engineer a realistic, multi-layer manufacturing specification sheet for it.
+                            </p>
+                        </div>
+
+                        <div className="bg-white p-2 rounded-xl shadow-md border border-gray-200 flex flex-col md:flex-row gap-2">
+                            <input 
+                                type="text" 
+                                value={prompt}
+                                onChange={(e) => setPrompt(e.target.value)}
+                                placeholder="e.g. A matte black glass bottle for a premium men's cologne with silver details."
+                                className="flex-grow px-4 py-3 outline-none text-gray-700 bg-transparent"
+                                onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
+                            />
+                            <button 
+                                onClick={handleGenerate}
+                                disabled={loading || !prompt}
+                                className="bg-gray-900 text-white font-bold px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 whitespace-nowrap"
+                            >
+                                {loading ? <Icon name="Loader2" className="animate-spin" /> : <Icon name="Cpu" />}
+                                ✨ Engineer Specs
+                            </button>
+                        </div>
+
+                        {spec && (
+                            <div className="mt-8 bg-gray-50 rounded-xl border border-gray-200 p-8 shadow-inner animate-fade-in">
+                                <h3 className="text-2xl font-bold mb-6 border-b border-gray-200 pb-4">{spec.title}</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div>
+                                        <h4 className="text-xs font-mono font-bold text-print-cyan uppercase tracking-wider mb-4">Core Attributes</h4>
+                                        <dl>
+                                            <SpecItem label="Dimensions" value={spec.dimensions} />
+                                            <SpecItem label="Substrate" value={spec.substrate} />
+                                            <SpecItem label="Print Method" value={spec.printMethod} />
+                                        </dl>
+                                        <div className="mt-6">
+                                            <dt className="text-xs font-mono text-ui-muted uppercase tracking-wider mb-3">Required Finishes</dt>
+                                            <div className="flex flex-wrap gap-2">
+                                                {spec.finishes.map((f, i) => (
+                                                    <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white border border-gray-200 text-xs font-medium">
+                                                        <Icon name="Wand2" size={12} className="text-gray-400" /> {f}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xs font-mono font-bold text-print-cyan uppercase tracking-wider mb-4">Build Sequence</h4>
+                                        <ul className="relative border-l-2 border-gray-300 ml-2 space-y-4">
+                                            {spec.layers.map((layer, idx) => (
+                                                <li key={idx} className="relative pl-6">
+                                                    <span className="absolute -left-[9px] top-1 w-4 h-4 bg-white border-2 border-gray-400 rounded-full"></span>
+                                                    <p className="text-xs font-mono font-bold text-gray-800">{layer.label}</p>
+                                                    <p className="text-sm text-gray-600">{layer.detail}</p>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [selectedProject, setSelectedProject] = useState(null);
+
+            useEffect(() => {
+                if (selectedProject) document.body.style.overflow = 'hidden';
+                else document.body.style.overflow = 'unset';
+                return () => { document.body.style.overflow = 'unset'; }
+            }, [selectedProject]);
+
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <Header />
+
+                    <main className="flex-grow max-w-7xl mx-auto px-6 py-12 w-full">
+                        <div className="max-w-2xl mb-16">
+                            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-ui-text">
+                                Bridging the gap between <span className="text-print-cyan">design vision</span> and <span className="text-print-magenta">print reality.</span>
+                            </h2>
+                            <p className="text-lg text-ui-muted">
+                                I specialize in packaging structural design, pre-press file preparation, and print production management. 
+                                Select a project below to explore the technical specifications and dieline architecture behind the final product.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {portfolioProjects.map(project => (
+                                <div 
+                                    key={project.id}
+                                    onClick={() => setSelectedProject(project)}
+                                    className="group cursor-pointer bg-white border border-ui-border rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:border-print-cyan transition-all duration-300 flex flex-col"
+                                >
+                                    <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                                        <img src={project.finalImage} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur font-mono text-[10px] px-2 py-1 rounded shadow-sm border border-gray-200 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <Icon name="Settings2" size={10} className="text-print-magenta" />
+                                            VIEW SPECS
+                                        </div>
+                                    </div>
+                                    <div className="p-5 flex flex-col flex-grow">
+                                        <p className="font-mono text-xs text-print-cyan mb-2 uppercase">{project.category}</p>
+                                        <h3 className="text-lg font-bold mb-3">{project.title}</h3>
+                                        <div className="mt-auto pt-4 border-t border-gray-100 flex flex-wrap gap-2">
+                                            {project.finishes.slice(0, 2).map((f, i) => (
+                                                <span key={i} className="text-[10px] uppercase font-mono bg-gray-50 text-gray-500 px-2 py-1 rounded border border-gray-100">
+                                                    {f.type || f.name}
+                                                </span>
+                                            ))}
+                                            {project.finishes.length > 2 && (
+                                                <span className="text-[10px] uppercase font-mono bg-gray-50 text-gray-500 px-2 py-1 rounded border border-gray-100">
+                                                    +{project.finishes.length - 2}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* AI FEATURE 2 */}
+                        <SpecArchitect />
+
+                    </main>
+
+                    <footer className="border-t border-ui-border bg-white py-8">
+                        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                            <p className="text-sm text-ui-muted font-mono">
+                                © 2024 Christian Isais. Designed for production.
+                            </p>
+                            <div className="flex gap-4 font-mono text-xs">
+                                <span className="flex items-center gap-1"><span className="w-2 h-2 bg-print-cyan rounded-full"></span> Cyan</span>
+                                <span className="flex items-center gap-1"><span className="w-2 h-2 bg-print-magenta rounded-full"></span> Magenta</span>
+                                <span className="flex items-center gap-1"><span className="w-2 h-2 bg-print-yellow rounded-full"></span> Yellow</span>
+                                <span className="flex items-center gap-1"><span className="w-2 h-2 bg-print-black rounded-full"></span> Black</span>
+                            </div>
+                        </div>
+                    </footer>
+
+                    <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

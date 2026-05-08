@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>isaiz_ | Selected Work</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Gloock', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#0a0a0a',
+                            100: '#171717',
+                            900: '#ffffff',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth image loading and hover transitions */
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+        .project-image {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .group:hover .project-image {
+            transform: scale(1.05);
+        }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        h1, h2, h3 {
+            font-family: 'Gloock', serif;
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-white antialiased flex flex-col min-h-screen">
+
+    <header class="fixed w-full top-0 bg-[#0a0a0a]/80 backdrop-blur-md z-50 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <a href="#" class="text-3xl font-serif tracking-wider text-white hover:text-gray-400 transition-colors">
+                    isaiz_
+                </a>
+
+                <div class="hidden md:flex items-center px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+                    <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+                    <span class="text-xs font-medium text-gray-300">Available for work</span>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#work" class="text-sm font-medium text-white hover:text-gray-400 transition-colors">Work</a>
+                    <a href="#about" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">About</a>
+                    <a href="#contact" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Contact</a>
+                </nav>
+
+                <button class="md:hidden p-2 text-gray-400 hover:text-white focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#121212] border-t border-white/5 px-6 py-6 space-y-6 shadow-lg">
+            <div class="flex items-center px-3 py-2 rounded-full bg-white/5 border border-white/10 w-fit">
+                <span class="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
+                <span class="text-xs font-medium text-gray-300">Available for work</span>
+            </div>
+            <a href="#work" class="block text-lg font-medium text-white" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Work</a>
+            <a href="#about" class="block text-lg font-medium text-gray-400" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
+            <a href="#contact" class="block text-lg font-medium text-gray-400" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-32 pb-16">
+        
+        <section class="max-w-7xl mx-auto px-6 lg:px-8 mb-32 mt-12 md:mt-20">
+            <div class="max-w-4xl">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-white mb-8 leading-[1.05]">
+                    Creative professional crafting digital experiences and visual solutions.
+                </h1>
+                <p class="text-lg md:text-2xl text-gray-400 font-light leading-relaxed mb-10 max-w-2xl">
+                    Welcome to my portfolio. Below is a selection of my recent work in packaging, branding, and design.
+                </p>
+                <a href="#work" class="inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-medium text-black bg-white hover:bg-gray-200 transition-colors font-sans">
+                    Explore my work
+                    <i data-lucide="arrow-down" class="ml-2 w-4 h-4"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="work" class="max-w-7xl mx-auto px-6 lg:px-8 scroll-mt-32">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 lg:gap-y-24">
+                
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800" alt="Mira Mar Productos Marinos" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Mira Mar Productos Marinos - Almeja Chirla</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Clean, nautical branding for the Seafood industry, allowing the product (clams) to be fully visible. Packaged in a flexible pouch featuring a clear window with an opaque white underprint.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Seafood</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Flexible Pouch</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&q=80&w=800" alt="Semilla de Mostaza" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Semilla de Mostaza (Jengibre & Toronjil)</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Natural health and supplement branding. Packaged in tincture-style glass dropper bottles with white BOPP or a metallic substrate and opaque inks highlighting elegant gold accents.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Health & Supplements</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Glass Dropper</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=800" alt="The H-Town Soda" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">The H-Town Soda</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Urban and cityscape silhouette design interacting beautifully with the bright pink liquid for the Beverage industry. Packaged in a clear glass bottle with a no-label, direct screen print aesthetic.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Beverage</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Glass Bottle</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800" alt="Salon Pro Naturals" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Salon Pro Naturals (Shampoo & Cond.)</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Clean, clinical botanical aesthetic for Haircare and Cosmetics. Packaged in plastic cylinder bottles with disc-top caps and standard White BOPP with a matte or gloss laminate.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Cosmetics</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Plastic Cylinder</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800" alt="Honesta - Vitamina C" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Honesta - Vitamina C</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Vibrant floating citrus elements contrasting well with a dark bottle for Skincare and Beauty. Packaged in an amber or dark blue glass dropper bottle with a premium apothecary matte white label.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Skincare</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Glass Dropper</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=800" alt="Shampoo Bar Coco Vanille" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Shampoo Bar Coco Vanille</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Minimalist and premium eco-friendly cosmetics. Packaged in a rigid folding carton box featuring a matte black background with elegant Gold and Green Hot Stamping or Spot UV.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Eco-Friendly</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Rigid Box</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&q=80&w=800" alt="Cere Pax" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Cere Pax (Omega)</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">High-energy, futuristic digital background for Supplements and Nootropics. Packaged in a blue PET packer bottle with a glossy finish and a vibrant metallic label substrate.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Supplements</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">PET Bottle</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800" alt="Monster Cookie Pouch" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Monster Cookie Pouch</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Playful, character-driven design for the Snack and Edibles industry. Packaged in a stand-up pouch with a matte green finish and a clever product window cut into the monster's mouth.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Snacks</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Stand-up Pouch</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=800" alt="Candy Kushers" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Candy Kushers (Blue & Pink)</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Vibrant, illustrative, youth-targeted branding for Confectionery. Packaged in stand-up pouches using high gloss or metallic BOPP to make the bright candy colors pop.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Confectionery</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Stand-up Pouch</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&q=80&w=800" alt="Flaming Kushers" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Flaming Kushers</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Intense, fiery aesthetic for the spicy snack industry. Packaged in a stand-up pouch featuring a matte black background with glossy flame and character illustrations.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Spicy Snacks</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Stand-up Pouch</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800" alt="Green Queen" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Green Queen</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Royal, premium branding for the Herbal, Botanical, or Cannabis industry. Packaged in a stand-up pouch with a matte white finish and metallic green/gold foil stamping on the logo and leaf elements.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Botanical</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Premium Packaging</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=800" alt="25+ Collagen" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">25+ (Collagen/Supplements)</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Soft, vibrant, and approachable branding for women's health and beauty supplements. Packaged in a pink or white PET packer bottle with a clear or white label featuring vivid floral graphics.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Women's Health</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">PET Bottle</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?auto=format&fit=crop&q=80&w=800" alt="Dark Space Creatine" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Dark Space Creatine</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Aggressive, high-contrast, energetic gym aesthetic for Sports nutrition. Packaged in a black plastic tub with a metallic or high-gloss label highlighted by neon green accents.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Sports Nutrition</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Plastic Tub</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800" alt="Belly Drops" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Belly Drops</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Natural, ingredient-focused wellness design. Packaged in a dark glass bottle with a premium metallic cap and a clean, matte white label.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Wellness</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Dark Glass</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=800" alt="Premium Anchored Cartridge" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Premium Anchored Cartridge</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Vintage, premium typography for the Vape and Extract industry. Packaged in a matte black folding carton box with a blister window insert and intricate Gold Foil stamping.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Vape Extracts</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Folding Carton</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800" alt="Sweet Cake Mixes" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Sweet Cake Mixes</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Fun, illustrative, patterned background for baking and confectionery powders. Packaged in stand-up pouches with a matte finish and a frosted or clear circular product window.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Baking</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Stand-up Pouch</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&q=80&w=800" alt="Deca 300" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Deca 300</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Clinical, high-voltage aesthetic for Pharmaceutical and Sports supplements. Packaged in a small glass pharmaceutical vial with a standard wrap-around glossy BOPP label.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Pharmaceutical</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Glass Vial</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block cursor-pointer">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800" alt="Casa Refill" class="project-image w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2">Casa Refill (Hand & Body Lotion)</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">High-end hospitality and boutique cosmetics with a sleek, spa-like feel. Packaged in amber glass or heavy PET bottles with pump dispensers and minimalist matte black labels.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Hospitality</span>
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Pump Bottle</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contact" class="bg-[#0a0a0a] border-t border-white/5 mt-24 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="mb-12 md:mb-0">
+                    <h2 class="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6">Let's work together.</h2>
+                    <p class="text-gray-400 mb-8 max-w-md text-lg font-light font-sans">I am always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
+                    <a href="mailto:hello@example.com" class="inline-flex items-center text-xl font-medium text-white hover:text-gray-400 transition-colors border-b border-white/20 pb-1 hover:border-gray-400 font-sans">
+                        Get in touch
+                        <i data-lucide="arrow-up-right" class="ml-2 w-5 h-5"></i>
+                    </a>
+                </div>
+                
+                <div class="flex space-x-8">
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
+                        <span class="sr-only">LinkedIn</span>
+                        <i data-lucide="linkedin" class="w-7 h-7"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
+                        <span class="sr-only">Twitter</span>
+                        <i data-lucide="twitter" class="w-7 h-7"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
+                        <span class="sr-only">GitHub</span>
+                        <i data-lucide="github" class="w-7 h-7"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-20 border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 font-light font-sans">
+                <p class="text-sm">
+                    &copy; <span id="year"></span> Christian Isais. All rights reserved.
+                </p>
+                <p class="text-sm mt-4 md:mt-0">
+                    Independent Digital Designer
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

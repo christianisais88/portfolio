@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christian Isaiz | Packaging Designer & Consultant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            /* Palette from "Ink & Space" reference */
+            --bg-color: #111110;
+            --surface-color: #1a1a19;
+            --surface-hover: #252524;
+            --accent-color: #E84A2F; /* The signature orange */
+            --text-primary: #F5F2EA; /* Off-white / Cream */
+            --text-secondary: #C8C4B8; /* Warm Grey */
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3 { 
+            font-family: 'Gloock', serif; 
+            font-weight: 400; 
+            line-height: 1.05; 
+        }
+        
+        h1 { 
+            font-size: clamp(3.5rem, 8vw, 6.5rem); 
+            margin-bottom: 2.5rem; 
+            letter-spacing: -0.03em; 
+        }
+        
+        h2 { 
+            font-size: clamp(2.5rem, 5vw, 4rem); 
+            margin-bottom: 4rem; 
+            text-align: left; 
+            letter-spacing: -0.02em;
+        }
+
+        h3 { 
+            font-size: 2rem; 
+            margin-bottom: 1.25rem; 
+            letter-spacing: -0.01em;
+        }
+
+        p { 
+            color: var(--text-secondary); 
+            font-size: 1.15rem; 
+            margin-bottom: 1.5rem; 
+            font-weight: 400;
+            max-width: 65ch;
+        }
+
+        /* Layout Structure */
+        section { padding: 10rem 10%; position: relative; }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Buttons - Rounded per "Ink & Space" style */
+        .btn {
+            display: inline-block;
+            padding: 1.25rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #ffffff;
+        }
+        
+        .btn-primary:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(245, 242, 234, 0.2);
+            margin-left: 1rem;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--text-primary);
+            background: rgba(245, 242, 234, 0.05);
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #222;
+        }
+        
+        .hero-content { max-width: 1000px; }
+        
+        .subtitle { 
+            color: var(--text-secondary); 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.2em; 
+            display: block; 
+            margin-bottom: 1.5rem; 
+        }
+
+        /* Stats Section */
+        #stats { 
+            background-color: var(--bg-color); 
+            padding: 5rem 10%; 
+            border-bottom: 1px solid #222;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 4rem;
+        }
+        
+        .stat-item h4 { 
+            font-family: 'Gloock', serif;
+            font-size: 4rem; 
+            color: var(--text-primary); 
+            line-height: 1; 
+            margin-bottom: 0.5rem; 
+        }
+        
+        .stat-item p { 
+            margin: 0; 
+            font-size: 0.75rem;
+            font-weight: 600; 
+            color: var(--text-secondary); 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+        }
+
+        /* Expertise Section */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .expertise-card {
+            background-color: var(--surface-color);
+            padding: 4rem 3rem;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+        
+        .expertise-card:hover { 
+            background-color: var(--surface-hover);
+        }
+        
+        .expertise-card i { 
+            font-size: 1.5rem; 
+            color: var(--accent-color); 
+            margin-bottom: 2rem; 
+            display: block;
+        }
+
+        /* AI Playground Specific Styles */
+        #ai-playground { background-color: var(--bg-color); border-top: 1px solid #222;}
+        
+        .ai-container { 
+            background: var(--surface-color); 
+            padding: 5rem; 
+            border-radius: 24px;
+            max-width: 1000px; 
+            margin: 0 auto; 
+        }
+        
+        .ai-input-group { 
+            display: flex; 
+            gap: 1rem; 
+            margin-top: 3rem; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+        }
+        
+        .ai-input { 
+            flex: 1; 
+            min-width: 300px; 
+            padding: 1.25rem 2rem; 
+            background: var(--bg-color); 
+            border: 1px solid #333; 
+            border-radius: 8px;
+            color: var(--text-primary); 
+            font-family: 'Inter', sans-serif; 
+            font-size: 1rem; 
+            outline: none; 
+            transition: var(--transition); 
+        }
+        
+        .ai-input:focus { border-color: var(--accent-color); }
+        
+        #ai-result { 
+            text-align: left; 
+            background: var(--bg-color); 
+            padding: 3rem; 
+            margin-top: 3rem; 
+            display: none; 
+            border-radius: 12px;
+            border: 1px solid #222; 
+        }
+        
+        #ai-result h4 { 
+            font-family: 'Gloock', serif;
+            color: var(--text-primary); 
+            margin-bottom: 1.5rem; 
+            font-size: 1.75rem; 
+            margin-top: 2rem; 
+        }
+        
+        #ai-result h4:first-child { margin-top: 0; }
+        #ai-result ul { margin-left: 1.5rem; margin-bottom: 1.5rem; list-style-type: none; }
+        #ai-result li { 
+            margin-bottom: 0.75rem; 
+            color: var(--text-secondary); 
+            font-size: 1.1rem; 
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        #ai-result li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+        
+        .loader { 
+            display: none; 
+            margin: 3rem auto; 
+            border: 3px solid #222; 
+            border-radius: 50%; 
+            border-top: 3px solid var(--accent-color); 
+            width: 50px; 
+            height: 50px; 
+            animation: spin 0.8s linear infinite; 
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Contact Section */
+        #contact { text-align: left; padding: 10rem 10%; background: var(--surface-color); }
+        #contact h2 { margin-bottom: 2rem; font-size: 5rem; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            section { padding: 6rem 5%; }
+            .btn-secondary { margin-left: 0; margin-top: 1rem; display: block; text-align: center; }
+            .ai-container { padding: 2.5rem; }
+            .stats-grid { gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="hero">
+        <div class="container hero-content">
+            <span class="subtitle">Technical Designer &bull; Consumer Goods</span>
+            <h1>High-Contrast Design. Precise Execution.</h1>
+            <p>I am Christian Isaiz. With 14 years of experience in Packaging Design, I bridge the gap between creative concept and retail reality through authoritative design and industrial precision, leveraging the best attiributes of each product and materials applied.</p>
+            <div class="hero-actions">
+                <a href="gallery.html" target="_blank" class="btn btn-primary">Portfolio</a>
+                <a href="mailto:christian.isais@gmail.com" class="btn btn-secondary">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats">
+        <div class="container stats-grid">
+            <div class="stat-item">
+                <h4>14</h4>
+                <p>Years Practice in Graphic and Technical Design</p>
+            </div>
+            <div class="stat-item">
+                <h4>B2B</h4>
+                <p>Sales and Consultant for SMBs</p>
+            </div>
+            <div class="stat-item">
+                <h4>100%</h4>
+                <p>Collaborative Work among teams</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="expertise">
+        <div class="container">
+            <span class="subtitle">Core Disciplines</span>
+            <h2>Gallery-grade technical solutions.</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <i class="fa-solid fa-bezier-curve"></i>
+                    <h3>Vector Precision</h3>
+                    <p>Sophisticated illustration systems built with meticulous attention to point-perfect accuracy and brand integrity.</p>
+                </div>
+                <div class="expertise-card">
+                    <i class="fa-solid fa-print"></i>
+                    <h3>Production Control</h3>
+                    <p>Absolute mastery over CMYK workflows and structural dielines, ensuring zero-compromise manufacturing.</p>
+                </div>
+                <div class="expertise-card">
+                    <i class="fa-solid fa-store"></i>
+                    <h3>Retail Presence</h3>
+                    <p>Authoritative storefront mockups and product visualizations that command space and attention.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Playground Section -->
+    <section id="ai-playground">
+        <div class="container ai-container">
+            <span class="subtitle" style="text-align: center;">Design Lab</span>
+            <h2 style="text-align: center; margin-bottom: 1rem;">Experience the Workflow</h2>
+            <p style="text-align: center; margin: 0 auto 3rem; max-width: 500px;">Submit a product concept and receive a high-level design brief generated by my technical process.</p>
+            
+            <div class="ai-input-group">
+                <input type="text" id="idea-input" class="ai-input" placeholder="Enter a product concept..." autocomplete="off">
+                <button id="generate-btn" class="btn btn-primary" onclick="generateConcept()">Run Brief</button>
+            </div>
+
+            <div class="loader" id="ai-loading"></div>
+            
+            <div id="ai-result">
+                <!-- AI generated content goes here -->
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Your vision, uncompromised.</h2>
+            <p>I am currently available for full-time technical leadership and design roles within the retail and consumer goods sectors.</p>
+            <br><br>
+            <a href="mailto:christian.isais@gmail.com" class="btn btn-primary">Start a Conversation</a>
+        </div>
+    </section>
+
+    <script>
+        const apiKey = "AIzaSyBQTE4gwJrAOfDiNn5t67cuyarBIumlha0"; 
+
+        async function fetchWithRetry(url, options, maxRetries = 5) {
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    if (i === maxRetries - 1) throw error;
+                    await new Promise(resolve => setTimeout(resolve, delays[i]));
+                }
+            }
+        }
+
+        async function generateConcept() {
+            const inputEl = document.getElementById('idea-input');
+            const resultEl = document.getElementById('ai-result');
+            const loaderEl = document.getElementById('ai-loading');
+            const btnEl = document.getElementById('generate-btn');
+            
+            const idea = inputEl.value.trim();
+            if (!idea) return;
+
+            btnEl.disabled = true;
+            btnEl.innerText = "Processing...";
+            resultEl.style.display = 'none';
+            loaderEl.style.display = 'block';
+            
+            const systemInstruction = `You are Christian's AI Assistant. Christian is a Technical Designer (14 years exp) specializing in vector illustration, print production, and retail systems.
+            Theme: "Ink & Space" (High-contrast, editorial, stark, precise).
+            Generate a brief for: "${idea}".
+            Include these 3 sections in HTML:
+            <h4>🎨 Aesthetic Direction</h4>
+            <ul><li>Tone and mood</li><li>Typography/Color strategy</li></ul>
+            <h4>📦 Technical Specifications</h4>
+            <ul><li>Materiality and CMYK considerations</li><li>Vector/Structural dieline focus</li></ul>
+            <h4>🏪 Commercial Impact</h4>
+            <ul><li>Shelf presence and retail experience</li></ul>
+            Keep the tone authoritative and brief. Output only HTML.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: `Brief for: ${idea}` }] }],
+                systemInstruction: { parts: [{ text: systemInstruction }] }
+            };
+
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const data = await fetchWithRetry(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                let generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text || "<p>Analysis failed.</p>";
+                generatedText = generatedText.replace(/```html/g, '').replace(/```/g, '');
+                
+                resultEl.innerHTML = generatedText;
+                resultEl.style.display = 'block';
+            } catch (error) {
+                resultEl.innerHTML = "<p><em>Network interruption. Please refresh.</em></p>";
+                resultEl.style.display = 'block';
+            } finally {
+                loaderEl.style.display = 'none';
+                btnEl.disabled = false;
+                btnEl.innerText = "Run Brief";
+            }
+        }
+    </script>
+</body>
+</html>

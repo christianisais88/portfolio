@@ -102,6 +102,12 @@
             { name: "Finishing & Coating", detail: "Applying laminates, foil, or Spot UV." },
             { name: "Die-cutting & Assembly", detail: "Cutting to shape and final gluing/folding." }
         ];
+          const metallicboppSequence = [
+                    { name: "Label Pre-press", detail: "Setting up white support masks and trap lines." },
+                    { name: "DigitalPrinting", detail: "Printing white support and CMYK base on BOPP." },
+                    { name: "Lamination", detail: "Applying matte lamination." },
+                    { name: "Application", detail: "Automated labeling onto glass bottles." }
+                ]
 
         const projectData = [
             {
@@ -131,13 +137,13 @@
                     packaging: "Glass dropper bottles (Tincture style)", 
                     finishes: "Metallic substrate, opaque inks, gold accents", 
                     industry: "Natural Health",
-                    colors: "CMYK + Gold Foil",
-                    substrate: "White BOPP / Metallic PET"
+                    colors: "CMYK + White Support",
+                    substrate: "Metallic BOPP + Matte Lamination"
                 },
                 sequence: [
-                    { name: "Label Pre-press", detail: "Setting up foil masks and trap lines." },
-                    { name: "Digital/Flexo Printing", detail: "Printing CMYK base on BOPP." },
-                    { name: "Hot Stamping", detail: "Applying gold foil accents." },
+                    { name: "Label Pre-press", detail: "Setting up white support masks and trap lines." },
+                    { name: "DigitalPrinting", detail: "Printing white support and CMYK base on BOPP." },
+                    { name: "Lamination", detail: "Applying matte lamination." },
                     { name: "Application", detail: "Automated labeling onto glass bottles." }
                 ]
             },
@@ -152,8 +158,8 @@
                     packaging: "Clear glass beverage bottle", 
                     finishes: "Clear label (no-label look) / Direct screen print", 
                     industry: "Beverage",
-                    colors: "White + 1 Spot Color",
-                    substrate: "Direct to Glass / Clear BOPP"
+                    colors: "White, Black + 1 Spot Color",
+                    substrate: "Clear on Clear BOPP"
                 },
                 sequence: defaultSequence
             },
@@ -164,7 +170,7 @@
                 images: ["images/salon1.png", "images/salon2.png", placeholders[1]],
                 description: "Clean, clinical botanical aesthetic for Haircare and Cosmetics. Packaged in plastic cylinder bottles with disc-top caps and standard White BOPP with a matte or gloss laminate.",
                 tags: ["Cosmetics", "Plastic Cylinder"],
-                specs: { packaging: "Plastic cylinder bottles", finishes: "Matte or gloss laminate", industry: "Haircare", colors: "CMYK", substrate: "White BOPP" },
+                specs: { packaging: "Plastic cylinder bottles", finishes: "Matte laminate", industry: "Haircare", colors: "CMYK", substrate: "White BOPP" },
                 sequence: defaultSequence
             },
             {
@@ -174,7 +180,7 @@
                 images: ["images/honesta1.png", "images/honesta2.png", placeholders[2]],
                 description: "Vibrant floating citrus elements contrasting well with a dark bottle for Skincare and Beauty. Packaged in an amber or dark blue glass dropper bottle with a premium apothecary matte white label.",
                 tags: ["Skincare", "Glass Dropper"],
-                specs: { packaging: "Amber/dark blue glass dropper", finishes: "Matte white label", industry: "Skincare", colors: "CMYK + Spot Varnish", substrate: "Textured Estate Paper" },
+                specs: { packaging: "Amber/dark blue glass dropper", finishes: "Matte metallic label", industry: "Skincare", colors: "CMYK + Spot Varnish", substrate: "Metallic BOPP, Matte Laminaition, Spot UV" },
                 sequence: defaultSequence
             },
             {
@@ -194,7 +200,7 @@
                 images: ["images/cerepax1.png", "images/cerepax2.png", placeholders[2]],
                 description: "High-energy, futuristic digital background for Supplements and Nootropics. Packaged in a blue PET packer bottle with a glossy finish and a vibrant metallic label substrate.",
                 tags: ["Supplements", "PET Bottle"],
-                specs: { packaging: "Blue PET packer bottle", finishes: "Glossy finish, metallic label", industry: "Supplements", colors: "CMYK + White underprint", substrate: "Metallic BOPP" },
+                specs: { packaging: "Clear PET Pill bottle", finishes: "Glossy finish Shrink Sleeve", industry: "Supplements", colors: "CMYK + White support", substrate: "PET-G Shrink Sleeve" },
                 sequence: defaultSequence
             },
             {
@@ -204,7 +210,7 @@
                 images: ["images/monster1.png", "images/monster2.png", placeholders[0]],
                 description: "Playful, character-driven design for the Snack and Edibles industry. Packaged in a stand-up pouch with a matte green finish and a clever product window cut into the monster's mouth.",
                 tags: ["Snacks", "Stand-up Pouch"],
-                specs: { packaging: "Stand-up pouch (Doypack)", finishes: "Matte green, die-cut window", industry: "Snacks", colors: "CMYK + White", substrate: "Clear PET / LLDPE" },
+                specs: { packaging: "Stand-up pouch", finishes: "Matte green, die-cut window", industry: "Snacks", colors: "CMYK + White", substrate: "Clear PET / LLDPE" },
                 sequence: defaultSequence
             },
             {
@@ -244,7 +250,7 @@
                 images: ["images/collagen1.png", "images/collagen2.png", placeholders[0]],
                 description: "Soft, vibrant, and approachable branding for women's health and beauty supplements. Packaged in a pink or white PET packer bottle with a clear or white label featuring vivid floral graphics.",
                 tags: ["Women's Health", "PET Bottle"],
-                specs: { packaging: "PET packer", finishes: "Clear/white label", industry: "Supplements", colors: "CMYK", substrate: "Clear BOPP" },
+                specs: { packaging: "Clear PET Pill bottle", finishes: "Glossy finish Shrink Sleeve", industry: "Supplements", colors: "CMYK + White support", substrate: "PET-G Shrink Sleeve" },
                 sequence: defaultSequence
             },
             {
@@ -291,7 +297,7 @@
                 id: 17,
                 title: "Deca 300",
                 category: "Health & Wellness",
-                images: ["images/decapro1.png", "images/decapro2.png", placeholders[2]],
+                images: ["images/deca1.png", "images/deca2.png", placeholders[2]],
                 description: "Clinical, high-voltage aesthetic for Pharmaceutical and Sports supplements. Packaged in a small glass pharmaceutical vial with a standard wrap-around glossy BOPP label.",
                 tags: ["Pharmaceutical", "Glass Vial"],
                 specs: { packaging: "Glass pharmaceutical vial", finishes: "Glossy BOPP label", industry: "Pharmaceutical", colors: "CMYK + PMS Spot", substrate: "Gloss BOPP" },
@@ -576,7 +582,7 @@
                             </div>
 
                             {/* Project Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 lg:gap-y-24">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16 lg:gap-y-24">
                                 {filteredProjects.map(project => (
                                     <div 
                                         key={project.id} 

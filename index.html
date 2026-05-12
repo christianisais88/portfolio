@@ -92,79 +92,91 @@
         <!-- Portfolio Showcase -->
         <section class="py-24 border-b border-zinc-800">
             <div class="flex items-center justify-between mb-16">
-                <h3 class="text-sm font-bold tracking-widest uppercase text-zinc-500">Selected Work</h3>
+                <h3 class="text-2xl md:text-3xl font-serif font-bold tracking-wide text-white">Selected Work</h3>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                <!-- Project 1 -->
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
-                        <img src="images/miramar1.png" alt="Mira Mar Productos Marinos" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16 lg:gap-y-24">
+                <!-- Monster Cookie Pouch -->
+                <div class="group block cursor-pointer" data-project-id="monster-cookie-pouch">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="images/monster1.png" alt="Monster Cookie Pouch" class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105">
                     </div>
-                    <div class="mt-6">
-                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Food & Beverage</p>
-                        <h4 class="text-2xl font-serif text-white mb-2">Mira Mar Productos Marinos</h4>
-                        <p class="text-zinc-400 text-sm leading-relaxed">Clean, nautical branding for seafood packaging with a flexible pouch and clear window treatment.</p>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
-                        <img src="images/htown1.png" alt="The H-Town Soda" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    </div>
-                    <div class="mt-6">
-                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Food & Beverage</p>
-                        <h4 class="text-2xl font-serif text-white mb-2">The H-Town Soda</h4>
-                        <p class="text-zinc-400 text-sm leading-relaxed">Urban beverage branding with a bold, city-inspired screen print aesthetic on glass bottles.</p>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2 font-serif">Monster Cookie Pouch</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Playful snack branding with a stand-up pouch and whimsical monster mouth window.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Food & Beverage</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Project 3 -->
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
-                        <img src="images/honesta1.png" alt="Honesta Vitamina C" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <!-- Cere Pax -->
+                <div class="group block cursor-pointer" data-project-id="cere-pax">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="images/cerepax1.png" alt="Cere Pax" class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105">
                     </div>
-                    <div class="mt-6">
-                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Health & Wellness</p>
-                        <h4 class="text-2xl font-serif text-white mb-2">Honesta — Vitamina C</h4>
-                        <p class="text-zinc-400 text-sm leading-relaxed">Premium vitamin branding with vibrant citrus visuals on a glass dropper bottle label.</p>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
-                        <img src="images/salon1.png" alt="Salon Pro Naturals" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    </div>
-                    <div class="mt-6">
-                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Health & Wellness</p>
-                        <h4 class="text-2xl font-serif text-white mb-2">Salon Pro Naturals</h4>
-                        <p class="text-zinc-400 text-sm leading-relaxed">A clean botanical identity for premium haircare products with a modern clinical look.</p>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2 font-serif">Cere Pax</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">High-energy supplement branding with transformative metallic visuals on a PET bottle.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Health & Wellness</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Project 5 -->
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
-                        <img src="images/shampoo1.png" alt="Shampoo Bar Coco Vanille" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <!-- H Town Soda -->
+                <div class="group block cursor-pointer" data-project-id="h-town-soda">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="images/htown1.png" alt="The H-Town Soda" class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105">
                     </div>
-                    <div class="mt-6">
-                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Health & Wellness</p>
-                        <h4 class="text-2xl font-serif text-white mb-2">Shampoo Bar Coco Vanille</h4>
-                        <p class="text-zinc-400 text-sm leading-relaxed">Minimalist eco-friendly packaging for a premium shampoo bar with luxe finishes.</p>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2 font-serif">The H-Town Soda</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Urban soda branding with a glass bottle and direct screen print finish.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Food & Beverage</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Project 6 -->
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
-                        <img src="images/collagen1.png" alt="25+ Collagen" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <!-- Candy Kushers -->
+                <div class="group block cursor-pointer" data-project-id="candy-kushers">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="images/candy1.png" alt="Candy Kushers" class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105">
                     </div>
-                    <div class="mt-6">
-                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Health & Wellness</p>
-                        <h4 class="text-2xl font-serif text-white mb-2">25+ Collagen</h4>
-                        <p class="text-zinc-400 text-sm leading-relaxed">Soft, feminine wellness branding for collagen supplements in elegant PET bottle packaging.</p>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2 font-serif">Candy Kushers</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Bright confectionery packaging with a youthful, illustrative style.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Food & Beverage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium Anchored -->
+                <div class="group block cursor-pointer" data-project-id="premium-anchored">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="images/anchored1.png" alt="Premium Anchored" class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2 font-serif">Premium Anchored</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">Premium vintage-inspired packaging for vape extracts with luxe gold foil details.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Other</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creatine Monohydrate -->
+                <div class="group block cursor-pointer" data-project-id="creatine-monohydrate">
+                    <div class="overflow-hidden rounded-xl bg-[#1a1a1a] mb-6 relative aspect-[4/3]">
+                        <img src="images/unike1.png" alt="Creatine Monohydrate" class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-medium text-white mb-2 font-serif">Creatine Monohydrate</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-2 font-light font-sans">High-contrast sports supplement packaging for a performance-driven creatine tub.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest font-sans">Health & Wellness</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,7 +191,7 @@
 
         <!-- Professional Pillars (The CV) -->
         <section class="py-24 border-b border-zinc-800">
-            <h3 class="text-sm font-bold tracking-widest uppercase text-zinc-500 mb-16">Professional Pillars</h3>
+            <h3 class="text-2xl md:text-3xl font-serif font-bold tracking-wide text-white mb-16">Professional Pillars</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <!-- Pillar 1 -->
@@ -223,13 +235,7 @@
                 
                 <!-- Skills & Certifications -->
                 <div>
-                    <h3 class="text-sm font-bold tracking-widest uppercase text-zinc-500 mb-10">Technical Toolkit</h3>
-                    
-                    <div class="mb-12">
-                        <h4 class="text-white font-medium mb-4 border-b border-zinc-800 pb-2">Core Competencies</h4>
-                        <ul class="space-y-3 text-zinc-400 text-sm font-light">
-                            <li><i class="fa-solid fa-check text-zinc-600 mr-2"></i> B2B Relations & Lead Generation</li>
-                            <li><i class="fa-solid fa-check text-zinc-600 mr-2"></i> CRM Systems (Salesforce / HubSpot)</li>
+                        <h3 class="text-2xl md:text-3xl font-serif font-bold tracking-wide text-white mb-10">Technical Toolkit</h3>
                             <li><i class="fa-solid fa-check text-zinc-600 mr-2"></i> Technical Packaging Design</li>
                             <li><i class="fa-solid fa-check text-zinc-600 mr-2"></i> Structural Formats: Shrink sleeves, pouches, boxes</li>
                         </ul>
@@ -247,7 +253,7 @@
 
                 <!-- Education -->
                 <div>
-                    <h3 class="text-sm font-bold tracking-widest uppercase text-zinc-500 mb-10">Education</h3>
+                    <h3 class="text-2xl md:text-3xl font-serif font-bold tracking-wide text-white mb-10">Education</h3>
                     <div class="bg-zinc-900/50 border border-zinc-800 p-8 rounded-xl">
                         <h4 class="text-2xl font-serif text-white mb-2">Universidad Autónoma de Nuevo León</h4>
                         <p class="text-lg text-zinc-300 font-medium mb-4">Bachelor’s Degree in Industrial Design</p>
@@ -273,7 +279,288 @@
             </div>
         </footer>
 
+        <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 p-4 sm:p-6 backdrop-blur-md">
+            <div class="bg-[#121212] border border-white/10 rounded-2xl w-full max-w-6xl h-[90vh] flex flex-col md:flex-row overflow-hidden modal-content shadow-2xl relative">
+                <button id="projectModalClose" class="absolute top-4 right-4 bg-black/50 hover:bg-black p-2 rounded-full text-white transition-colors z-[110] backdrop-blur-sm border border-white/10">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                
+                <!-- Left Side: Image Slider -->
+                <div class="w-full md:w-1/2 h-auto md:h-full shrink-0 bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/5">
+                    <div class="relative h-[450px] md:h-full bg-zinc-900 overflow-hidden">
+                        <img id="modalPrepressImage" src="" alt="" class="absolute inset-0 w-full h-full object-cover pointer-events-none">
+                        <img id="modalFinalImage" src="" alt="" class="absolute inset-0 w-full h-full object-cover pointer-events-none" style="clip-path: inset(0 50% 0 0);">
+                        <input id="modalSlider" type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20 m-0">
+                        <div id="modalSliderHandle" class="absolute top-0 bottom-0 left-[50%] w-[2px] bg-white pointer-events-none z-10 flex items-center justify-center" style="transform: translateX(-50%);">
+                            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.6)] text-black">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 18-6-6 6-6"></path>
+                                    <path d="m15 18 6-6-6-6"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="modalFinalLabel" class="absolute top-6 left-6 z-10 pointer-events-none transition-opacity duration-300 bg-black/60 backdrop-blur-md text-white text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border border-white/10 font-sans shadow-lg">Final Render</div>
+                        <div id="modalPrepressLabel" class="absolute top-6 right-6 z-10 pointer-events-none transition-opacity duration-300 bg-white/90 backdrop-blur-md text-black text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border border-black/10 font-sans font-semibold shadow-lg">Pre-Press</div>
+                        <div id="modalCategory" class="absolute bottom-6 left-6 z-10 pointer-events-none rounded-full border border-white/20 bg-black/70 backdrop-blur-sm px-4 py-1.5 text-xs uppercase tracking-widest text-gray-400 font-sans"></div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Scrollable Details -->
+                <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col overflow-y-auto bg-[#121212]">
+                    <h2 id="modalTitle" class="text-3xl md:text-4xl font-serif font-medium text-white mb-4 leading-tight"></h2>
+                    <p id="modalDescription" class="text-gray-400 font-light mb-10 leading-relaxed font-sans"></p>
+                    
+                    <!-- Technical Specifications Layout -->
+                    <div class="border border-white/10 rounded-lg p-6 bg-white/[0.02] mb-8">
+                        <h4 class="text-sm font-semibold text-white uppercase tracking-widest mb-6 font-sans flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                            Technical Specifications
+                        </h4>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-4">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-sans mb-1">Packaging Format</p>
+                                <p id="modalPackaging" class="text-sm text-gray-300 font-mono"></p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-sans mb-1">Substrate / Material</p>
+                                <p id="modalSubstrate" class="text-sm text-gray-300 font-mono"></p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-sans mb-1">Color Space</p>
+                                <p id="modalColors" class="text-sm text-gray-300 font-mono"></p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-sans mb-1">Special Finishes</p>
+                                <p id="modalFinishes" class="text-sm text-gray-300 font-mono"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Tags -->
+                    <div id="modalTagsContainer" class="mb-8">
+                        <h4 class="text-sm font-semibold text-white uppercase tracking-widest mb-3 font-sans">Project Tags</h4>
+                        <div id="modalTags" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <!-- Production Sequence Layout -->
+                    <div>
+                        <h4 class="text-sm font-semibold text-white uppercase tracking-widest mb-6 font-sans flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                            Production Sequence
+                        </h4>
+                        <div class="space-y-0" id="modalSequence"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
+    <script>
+        const projectData = {
+            "monster-cookie-pouch": {
+                title: "Monster Cookie Pouch",
+                category: "Food & Beverage",
+                images: ["images/monster1.png", "images/monster2.png"],
+                description: "Playful snack branding with a stand-up pouch and a whimsical monster mouth window.",
+                tags: ["Snacks", "Stand-up Pouch"],
+                specs: {
+                    packaging: "Stand-up pouch (Doypack)",
+                    finishes: "Matte green, die-cut window",
+                    colors: "CMYK + White",
+                    substrate: "Clear PET / LLDPE"
+                },
+                sequence: [
+                    { name: "Pre-press & Color Separation", detail: "Preparing artwork and dielines for pouch production." },
+                    { name: "Printing", detail: "High-quality flexographic printing on laminate film." },
+                    { name: "Finishing & Coating", detail: "Applying matte finishes and preparing the die-cut window area." },
+                    { name: "Die-cutting & Assembly", detail: "Forming and sealing the pouch for retail display." }
+                ]
+            },
+            "cere-pax": {
+                title: "Cere Pax",
+                category: "Health & Wellness",
+                images: ["images/cerepax1.png", "images/cerepax2.png"],
+                description: "High-energy supplement branding with transformative metallic visuals on a PET bottle.",
+                tags: ["Supplements", "PET Bottle"],
+                specs: {
+                    packaging: "Blue PET packer bottle",
+                    finishes: "Glossy finish, metallic label",
+                    colors: "CMYK + White underprint",
+                    substrate: "Metallic BOPP"
+                },
+                sequence: [
+                    { name: "Pre-press & Color Separation", detail: "Preparing label artwork and metallic effects." },
+                    { name: "Printing", detail: "Digital/offset printing on specialized label stock." },
+                    { name: "Finishing & Coating", detail: "Applying glossy laminate and metallic highlight details." },
+                    { name: "Die-cutting & Assembly", detail: "Cutting labels and applying them to PET bottles." }
+                ]
+            },
+            "h-town-soda": {
+                title: "The H-Town Soda",
+                category: "Food & Beverage",
+                images: ["images/htown1.png", "images/htown2.png"],
+                description: "Urban soda branding with a glass bottle and direct screen print finish.",
+                tags: ["Beverage", "Glass Bottle"],
+                specs: {
+                    packaging: "Clear glass beverage bottle",
+                    finishes: "Direct screen print / no-label look",
+                    colors: "White + 1 Spot Color",
+                    substrate: "Direct to Glass"
+                },
+                sequence: [
+                    { name: "Pre-press & Color Separation", detail: "Setting up soda bottle artwork and print screens." },
+                    { name: "Printing", detail: "Direct screen printing onto glass bottles." },
+                    { name: "Finishing & Coating", detail: "Applying final coatings and inspection." },
+                    { name: "Die-cutting & Assembly", detail: "Packaging bottles for distribution." }
+                ]
+            },
+            "candy-kushers": {
+                title: "Candy Kushers",
+                category: "Food & Beverage",
+                images: ["images/candy1.png", "images/candy2.png"],
+                description: "Bright confectionery packaging with a youthful, illustrative style.",
+                tags: ["Confectionery", "Stand-up Pouch"],
+                specs: {
+                    packaging: "Stand-up pouch",
+                    finishes: "High gloss or metallic",
+                    colors: "CMYK + White",
+                    substrate: "Metallic BOPP"
+                },
+                sequence: [
+                    { name: "Pre-press & Color Separation", detail: "Creating vibrant candy packaging artwork." },
+                    { name: "Printing", detail: "Printing on glossy metallic film for shelf impact." },
+                    { name: "Finishing & Coating", detail: "Applying spot gloss and metallic elements." },
+                    { name: "Die-cutting & Assembly", detail: "Sealing pouches and preparing them for retail." }
+                ]
+            },
+            "premium-anchored": {
+                title: "Premium Anchored",
+                category: "Other",
+                images: ["images/anchored1.png", "images/anchored2.png"],
+                description: "Premium vintage-inspired packaging for vape extracts with luxe gold foil details.",
+                tags: ["Vape Extracts", "Folding Carton"],
+                specs: {
+                    packaging: "Folding carton box",
+                    finishes: "Matte black, Gold Foil stamping",
+                    colors: "Black + Gold Foil",
+                    substrate: "SBS Paperboard"
+                },
+                sequence: [
+                    { name: "Pre-press & Color Separation", detail: "Designing foil mask artwork and carton dielines." },
+                    { name: "Printing", detail: "Printing the carton stock with premium black and foil panels." },
+                    { name: "Finishing & Coating", detail: "Applying foil stamping and matte lamination." },
+                    { name: "Die-cutting & Assembly", detail: "Folding cartons and inserting blister trays." }
+                ]
+            },
+            "creatine-monohydrate": {
+                title: "Creatine Monohydrate",
+                category: "Health & Wellness",
+                images: ["images/unike1.png", "images/unike2.png"],
+                description: "High-contrast sports supplement packaging for a performance-driven creatine tub.",
+                tags: ["Sports Nutrition", "Plastic Tub"],
+                specs: {
+                    packaging: "Black plastic tub",
+                    finishes: "Metallic/high-gloss label",
+                    colors: "CMYK + Neon Spot",
+                    substrate: "Metallic PP"
+                },
+                sequence: [
+                    { name: "Pre-press & Color Separation", detail: "Preparing high-impact supplement label artwork." },
+                    { name: "Printing", detail: "Printing on metallic label stock with neon accents." },
+                    { name: "Finishing & Coating", detail: "Applying gloss laminate and quality control." },
+                    { name: "Die-cutting & Assembly", detail: "Label application and tub sealing." }
+                ]
+            }
+        };
+
+        const projectModal = document.getElementById('projectModal');
+        const projectModalClose = document.getElementById('projectModalClose');
+        const modalFinalImage = document.getElementById('modalFinalImage');
+        const modalPrepressImage = document.getElementById('modalPrepressImage');
+        const modalSlider = document.getElementById('modalSlider');
+        const modalSliderHandle = document.getElementById('modalSliderHandle');
+        const modalFinalLabel = document.getElementById('modalFinalLabel');
+        const modalPrepressLabel = document.getElementById('modalPrepressLabel');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalPackaging = document.getElementById('modalPackaging');
+        const modalSubstrate = document.getElementById('modalSubstrate');
+        const modalColors = document.getElementById('modalColors');
+        const modalFinishes = document.getElementById('modalFinishes');
+        const modalTags = document.getElementById('modalTags');
+        const modalSequence = document.getElementById('modalSequence');
+
+        function updateSlider(value) {
+            const position = Number(value);
+            const clipValue = 100 - position;
+            modalFinalImage.style.clipPath = `inset(0 ${clipValue}% 0 0)`;
+            modalSliderHandle.style.left = `${position}%`;
+            modalFinalLabel.style.opacity = position > 25 ? '1' : '0';
+            modalPrepressLabel.style.opacity = position < 75 ? '1' : '0';
+        }
+
+        function openProjectModal(projectKey) {
+            const project = projectData[projectKey];
+            if (!project) return;
+
+            const finalImage = project.images[0];
+            const prepressImage = project.images[1] || project.images[0];
+
+            modalFinalImage.src = finalImage;
+            modalFinalImage.alt = project.title;
+            modalPrepressImage.src = prepressImage;
+            modalPrepressImage.alt = `${project.title} pre-press`;
+            modalSlider.value = 50;
+            updateSlider(50);
+
+            modalTitle.textContent = project.title;
+            modalCategory.textContent = project.category;
+            modalDescription.textContent = project.description;
+            modalPackaging.textContent = project.specs.packaging;
+            modalSubstrate.textContent = project.specs.substrate;
+            modalColors.textContent = project.specs.colors;
+            modalFinishes.textContent = project.specs.finishes;
+            modalTags.innerHTML = project.tags.map(tag => `<span class="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.2em] text-gray-400">${tag}</span>`).join(' ');
+            modalSequence.innerHTML = project.sequence.map((step, index) => `
+                <div class="flex items-start gap-4">
+                    <div class="flex flex-col items-center mt-1">
+                        <div class="w-3 h-3 rounded-full border-2 border-[#121212] bg-gray-400 outline outline-1 outline-white/20"></div>
+                        ${index !== project.sequence.length - 1 ? '<div class="w-px h-12 bg-white/10 my-1"></div>' : ''}
+                    </div>
+                    <div class="pb-4">
+                        <p class="text-sm text-white font-mono">${step.name}</p>
+                        <p class="text-xs text-gray-500 font-mono mt-1">${step.detail}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            projectModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            projectModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('[data-project-id]').forEach(card => {
+            card.addEventListener('click', () => openProjectModal(card.dataset.projectId));
+        });
+
+        modalSlider.addEventListener('input', event => updateSlider(event.target.value));
+
+        projectModalClose.addEventListener('click', closeProjectModal);
+        projectModal.addEventListener('click', event => {
+            if (event.target === projectModal) closeProjectModal();
+        });
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && !projectModal.classList.contains('hidden')) {
+                closeProjectModal();
+            }
+        });
+    </script>
 </body>
 </html>

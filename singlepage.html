@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angel Christian Mtz Isaiz | Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        zinc: {
+                            950: '#09090b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom image placeholders for structural layout */
+        .img-placeholder {
+            background-image: linear-gradient(to bottom right, #18181b, #27272a);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-300 font-sans antialiased selection:bg-white selection:text-black">
+
+    <main class="max-w-6xl mx-auto px-6 md:px-12">
+        
+        <!-- Hero Section (The Digital Business Card) -->
+        <header class="pt-32 pb-24 md:pt-48 md:pb-32 border-b border-zinc-800">
+            <!-- Status Badge -->
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/50 mb-8">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                </span>
+                <span class="text-sm font-medium tracking-wide text-zinc-300 uppercase">Available for work</span>
+            </div>
+
+            <!-- Headlines -->
+            <h1 class="text-5xl md:text-7xl font-serif font-bold text-white tracking-tight leading-tight mb-6">
+                Angel Christian <br class="hidden md:block"/> Mtz Isaiz.
+            </h1>
+            <p class="text-xl md:text-2xl text-zinc-400 font-light max-w-3xl leading-relaxed mb-10">
+                Packaging Consultant &nbsp;&mdash;&nbsp; B2B Sales & Client Relations Expert.
+            </p>
+
+            <!-- Contact Icons -->
+            <div class="flex flex-wrap items-center gap-6">
+                <a href="mailto:christian.isais@gmail.com" class="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors">
+                    <i class="fa-regular fa-envelope text-lg"></i>
+                    <span>christian.isais@gmail.com</span>
+                </a>
+                <a href="#" class="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors">
+                    <i class="fa-brands fa-linkedin text-lg"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <div class="flex items-center gap-2 text-zinc-400">
+                    <i class="fa-solid fa-location-dot text-lg"></i>
+                    <span>Reynosa, Mexico</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Professional Summary (The Pitch) -->
+        <section class="py-24 border-b border-zinc-800">
+            <h2 class="text-3xl md:text-5xl font-serif text-white leading-snug max-w-4xl">
+                "With over <span class="italic">10 years of experience</span> in the packaging industry, I bridge the gap between technical design and strategic growth."
+            </h2>
+            <p class="mt-8 text-lg text-zinc-400 max-w-3xl leading-relaxed font-light">
+                My expertise spans diverse, high-demand sectors including cosmetics, beverages, and the emerging cannabis market. I specialize in leading teams through complex challenges and executing strategic profitability turnarounds, ensuring both aesthetic excellence and scalable business success.
+            </p>
+        </section>
+
+        <!-- Portfolio Showcase -->
+        <section class="py-24 border-b border-zinc-800">
+            <div class="flex items-center justify-between mb-16">
+                <h3 class="text-sm font-bold tracking-widest uppercase text-zinc-500">Selected Work</h3>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Monster Cookie Pouch -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
+                        <img src="images/monster1.png" alt="Monster Cookie Pouch" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Food & Beverage</p>
+                        <h4 class="text-2xl font-serif text-white mb-2">Monster Cookie Pouch</h4>
+                        <p class="text-zinc-400 text-sm leading-relaxed">Playful snack branding with a stand-up pouch and a whimsical monster mouth window.</p>
+                    </div>
+                </div>
+
+                <!-- Cere Pax -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
+                        <img src="images/cerepax1.png" alt="Cere Pax" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Health & Wellness</p>
+                        <h4 class="text-2xl font-serif text-white mb-2">Cere Pax</h4>
+                        <p class="text-zinc-400 text-sm leading-relaxed">High-energy supplement packaging with futuristic metallic label design on a PET bottle.</p>
+                    </div>
+                </div>
+
+                <!-- H Town Soda -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
+                        <img src="images/htown1.png" alt="The H-Town Soda" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Food & Beverage</p>
+                        <h4 class="text-2xl font-serif text-white mb-2">The H-Town Soda</h4>
+                        <p class="text-zinc-400 text-sm leading-relaxed">Urban soda branding with a glass bottle and direct screen print aesthetic.</p>
+                    </div>
+                </div>
+
+                <!-- Candy Kushers -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
+                        <img src="images/candy1.png" alt="Candy Kushers" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Food & Beverage</p>
+                        <h4 class="text-2xl font-serif text-white mb-2">Candy Kushers</h4>
+                        <p class="text-zinc-400 text-sm leading-relaxed">Bright confectionery packaging with a youthful, illustrative style on stand-up pouches.</p>
+                    </div>
+                </div>
+
+                <!-- Premium Anchored -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
+                        <img src="images/anchored1.png" alt="Premium Anchored" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Other</p>
+                        <h4 class="text-2xl font-serif text-white mb-2">Premium Anchored</h4>
+                        <p class="text-zinc-400 text-sm leading-relaxed">Vintage-inspired premium packaging for vape extracts with gold foil detailing.</p>
+                    </div>
+                </div>
+
+                <!-- Creatine Monohydrate -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-3xl bg-zinc-900 aspect-[4/3]">
+                        <img src="images/creatine1.png" alt="Creatine Monohydrate" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-xs uppercase tracking-[0.28em] text-zinc-500 mb-3">Health & Wellness</p>
+                        <h4 class="text-2xl font-serif text-white mb-2">Creatine Monohydrate</h4>
+                        <p class="text-zinc-400 text-sm leading-relaxed">Aggressive sports nutrition branding for a high-contrast creatine supplement tub.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="gallery.html" class="inline-flex items-center justify-center px-8 py-4 text-sm font-medium text-black bg-white rounded-full hover:bg-zinc-200 transition-colors duration-300">
+                    View Full Portfolio
+                    <i class="fa-solid fa-arrow-right ml-3"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Professional Pillars (The CV) -->
+        <section class="py-24 border-b border-zinc-800">
+            <h3 class="text-sm font-bold tracking-widest uppercase text-zinc-500 mb-16">Professional Pillars</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Pillar 1 -->
+                <div>
+                    <h4 class="text-2xl font-serif text-white mb-4">Strategic Leadership</h4>
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light mb-4">
+                        Owner of <strong class="text-white font-normal">Isais Solutions</strong> and former Market Director at <strong class="text-white font-normal">Labels Lab</strong>.
+                    </p>
+                    <p class="text-zinc-500 text-sm leading-relaxed">
+                        Spearheaded the company's expansion into Mexico and LATAM, developing high-level strategies for market penetration and establishing robust business relationships.
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div>
+                    <h4 class="text-2xl font-serif text-white mb-4">Creative Direction</h4>
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light mb-4">
+                        Motion Graphics Art Director at <strong class="text-white font-normal">Design Pickle</strong>.
+                    </p>
+                    <p class="text-zinc-500 text-sm leading-relaxed">
+                        Led creative vision and implemented systematic, highly efficient workflows to scale design operations without compromising visual integrity.
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div>
+                    <h4 class="text-2xl font-serif text-white mb-4">Academic Impact</h4>
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light mb-4">
+                        Graphic Design Teacher at <strong class="text-white font-normal">Universidad Tecmilenio</strong>.
+                    </p>
+                    <p class="text-zinc-500 text-sm leading-relaxed">
+                        Bridged the gap between theoretical academic concepts and real-world professional execution, mentoring the next generation of designers.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Toolkit & Education -->
+        <section class="py-24 border-b border-zinc-800">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <!-- Skills & Certifications -->
+                <div>
+                    <h3 class="text-sm font-bold tracking-widest uppercase text-zinc-500 mb-10">Technical Toolkit</h3>
+                    
+                    <div class="mb-12">
+                        <h4 class="text-white font-medium mb-4 border-b border-zinc-800 pb-2">Core Competencies</h4>
+                        <ul class="space-y-3 text-zinc-400 text-sm font-light">
+                            <li><i class="fa-solid fa-check text-zinc-600 mr-2"></i> B2B Relations & Lead Generation</li>
+                            <li><i class="fa-solid fa-check text-zinc-600 mr-2"></i> CRM Systems (Salesforce / HubSpot)</li>
+                            <li><i class="fa-solid fa-check text-zinc-600 mr-2"></i> Technical Packaging Design</li>
+                            <li><i class="fa-solid fa-check text-zinc-600 mr-2"></i> Structural Formats: Shrink sleeves, pouches, boxes</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-white font-medium mb-4 border-b border-zinc-800 pb-2">2024 Certifications</h4>
+                        <ul class="space-y-3 text-zinc-400 text-sm font-light">
+                            <li><i class="fa-solid fa-award text-zinc-600 mr-2"></i> Agile & Project Management Diploma</li>
+                            <li><i class="fa-solid fa-award text-zinc-600 mr-2"></i> Sales & Service Management Diploma</li>
+                            <li><i class="fa-solid fa-award text-zinc-600 mr-2"></i> Business Cold Calling Certificate</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div>
+                    <h3 class="text-sm font-bold tracking-widest uppercase text-zinc-500 mb-10">Education</h3>
+                    <div class="bg-zinc-900/50 border border-zinc-800 p-8 rounded-xl">
+                        <h4 class="text-2xl font-serif text-white mb-2">Universidad Autónoma de Nuevo León</h4>
+                        <p class="text-lg text-zinc-300 font-medium mb-4">Bachelor’s Degree in Industrial Design</p>
+                        <p class="text-zinc-500 text-sm leading-relaxed">
+                            Formed the foundational understanding of structural design, materials, and product lifecycle that drives my current approach to technical packaging.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer (Call to Action) -->
+        <footer class="py-32 text-center">
+            <h2 class="text-5xl md:text-7xl font-serif text-white font-bold mb-10">Let’s work together.</h2>
+            <a href="mailto:christian.isais@gmail.com" class="inline-flex items-center justify-center px-8 py-4 text-sm font-medium text-black bg-white rounded-full hover:bg-zinc-200 hover:scale-105 transition-all duration-300 gap-2">
+                Get in touch
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            
+            <div class="mt-24 text-zinc-600 text-sm">
+                &copy; <script>document.write(new Date().getFullYear())</script> Angel Christian Mtz Isaiz. All rights reserved.
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>

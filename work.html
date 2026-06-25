@@ -92,9 +92,6 @@
     </style>
 </head>
 <body class="text-ui-text font-sans antialiased bg-grid-pattern selection:bg-print-cyan selection:text-white">
-    <div id="google_translate_element_wrapper" class="fixed top-4 right-4 z-50 bg-white/90 rounded-full px-3 py-2 shadow-lg border border-slate-200">
-        <div id="google_translate_element"></div>
-    </div>
     <div id="root"></div>
 
     <script type="text/babel">
@@ -652,16 +649,5 @@
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,es',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

@@ -125,9 +125,6 @@
     <script type="text/javascript">
         function downloadCoverPDF() {
             const element = document.getElementById('cover-content');
-            const translateWrapper = document.getElementById('google_translate_element_wrapper');
-            const originalDisplay = translateWrapper.style.display;
-            translateWrapper.style.display = 'none';
             const opt = {
                 margin: 0.35,
                 filename: 'Christian-Isaiz-Cover-Letter.pdf',
@@ -135,21 +132,8 @@
                 html2canvas: { scale: 2, useCORS: true },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
-            html2pdf().set(opt).from(element).save().then(() => {
-                translateWrapper.style.display = originalDisplay || '';
-            }).catch(() => {
-                translateWrapper.style.display = originalDisplay || '';
-            });
-        }
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,es',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
+            html2pdf().set(opt).from(element).save();
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

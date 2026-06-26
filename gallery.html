@@ -172,7 +172,57 @@
             grid-template-columns: 1.1fr 0.9fr;
             gap: 0;
         }
-        .modal-hero img { height: 100%; object-fit: cover; min-height: 320px; }
+        .modal-media {
+            position: relative;
+            min-height: 320px;
+            background: #0f0f10;
+        }
+        .modal-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 320px;
+        }
+        .slider-controls {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            pointer-events: none;
+        }
+        .slider-btn {
+            border: 0;
+            border-radius: 999px;
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            background: rgba(255,255,255,0.16);
+            color: white;
+            backdrop-filter: blur(6px);
+            pointer-events: auto;
+        }
+        .slider-btn:disabled {
+            opacity: 0.45;
+            cursor: default;
+        }
+        .slider-counter {
+            position: absolute;
+            left: 50%;
+            bottom: 14px;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #f5f5f5;
+            background: rgba(0,0,0,0.45);
+            padding: 6px 10px;
+            border-radius: 999px;
+            backdrop-filter: blur(6px);
+        }
         .modal-content { padding: 24px 24px 28px; }
         .modal-close {
             float: right;
@@ -230,7 +280,14 @@
     <div id="modal" class="modal" aria-hidden="true">
         <div class="modal-card">
             <div class="modal-hero">
-                <img id="modalImage" alt="Project preview">
+                <div class="modal-media">
+                    <img id="modalImage" alt="Project preview">
+                    <div class="slider-controls" aria-label="Project image slider">
+                        <button id="modalPrev" class="slider-btn" type="button" aria-label="Previous image">←</button>
+                        <button id="modalNext" class="slider-btn" type="button" aria-label="Next image">→</button>
+                    </div>
+                    <div id="modalCounter" class="slider-counter"></div>
+                </div>
                 <div class="modal-content">
                     <button id="modalClose" class="modal-close" aria-label="Close">×</button>
                     <h3 id="modalTitle"></h3>
@@ -252,6 +309,7 @@
             {
                 title: 'Mira Mar Productos Marinos',
                 image: 'images/miramar1.png',
+                images: ['images/miramar1.png', 'images/miramar1b.png', 'images/miramar2.png'],
                 description: 'Clean, nautical branding built for seafood in a flexible pouch with a transparent window.',
                 tags: ['Seafood', 'Flexible Pouch'],
                 format: 'Flexible pouch / bag',
@@ -262,6 +320,7 @@
             {
                 title: 'Semilla de Mostaza',
                 image: 'images/semilla1.png',
+                images: ['images/semilla1.png', 'images/semilla2.png', 'images/semilla2.jpg'],
                 description: 'Natural-health branding with a premium tincture-style presentation and metallic details.',
                 tags: ['Health', 'Glass Dropper'],
                 format: 'Glass dropper bottles',
@@ -272,6 +331,7 @@
             {
                 title: 'The H-Town Soda',
                 image: 'images/htown1.png',
+                images: ['images/htown1.png', 'images/htown2.png'],
                 description: 'A city-inspired beverage identity with a no-label, direct screen-print feel.',
                 tags: ['Beverage', 'Glass Bottle'],
                 format: 'Clear glass beverage bottle',
@@ -282,6 +342,7 @@
             {
                 title: 'Salon Pro Naturals',
                 image: 'images/salon1.png',
+                images: ['images/salon1.png', 'images/salon2.png'],
                 description: 'Clinical botanical packaging for haircare and cosmetics with a clean premium finish.',
                 tags: ['Cosmetics', 'Plastic Cylinder'],
                 format: 'Plastic cylinder bottles',
@@ -292,6 +353,7 @@
             {
                 title: 'Honesta - Vitamina C',
                 image: 'images/honesta1.png',
+                images: ['images/honesta1.png', 'images/honesta2.png'],
                 description: 'Vibrant citrus packaging for skincare and beauty with an apothecary-inspired mood.',
                 tags: ['Skincare', 'Glass Dropper'],
                 format: 'Amber / dark blue glass dropper',
@@ -302,6 +364,7 @@
             {
                 title: 'Monster Cookie Pouch',
                 image: 'images/monster1.png',
+                images: ['images/monster1.png', 'images/monster2.png'],
                 description: 'A playful food pouch concept with a window cut into the monster’s mouth.',
                 tags: ['Food', 'Stand-up Pouch'],
                 format: 'Stand-up pouch',
@@ -312,6 +375,7 @@
             {
                 title: 'Candy Kushers',
                 image: 'images/candy1.png',
+                images: ['images/candy1.png', 'images/candy2.png'],
                 description: 'Bright confectionery packaging designed to feel youthful, bold, and instantly recognizable.',
                 tags: ['Confectionery', 'Stand-up Pouch'],
                 format: 'Stand-up pouch',
@@ -322,6 +386,7 @@
             {
                 title: 'Premium Anchored',
                 image: 'images/anchored1.png',
+                images: ['images/anchored1.png', 'images/anchored2.png'],
                 description: 'Vintage-inspired premium packaging for extracts with foil-stamped detailing.',
                 tags: ['Vape', 'Folding Carton'],
                 format: 'Folding carton box',
@@ -332,6 +397,7 @@
             {
                 title: 'Cere Pax',
                 image: 'images/cerepax1.png',
+                images: ['images/cerepax1.png', 'images/cerepax2.png'],
                 description: 'A high-energy supplement design with metallic visuals and an elevated product story.',
                 tags: ['Wellness', 'PET Bottle'],
                 format: 'PET bottle',
@@ -342,6 +408,7 @@
             {
                 title: 'Creatine Monohydrate',
                 image: 'images/unike1.png',
+                images: ['images/unike1.png', 'images/unike2.png'],
                 description: 'High-contrast sports nutrition packaging built around performance and clarity.',
                 tags: ['Sports', 'Plastic Tub'],
                 format: 'Plastic tub',
@@ -352,6 +419,7 @@
             {
                 title: 'Belly Drops',
                 image: 'images/belly1.png',
+                images: ['images/belly1.png', 'images/belly2.png'],
                 description: 'A clean wellness concept for a dark glass bottle with a premium matte finish.',
                 tags: ['Wellness', 'Dark Glass'],
                 format: 'Dark glass bottle',
@@ -362,6 +430,7 @@
             {
                 title: 'Casa Refill',
                 image: 'images/casa1.png',
+                images: ['images/casa1.png', 'images/casa2.png'],
                 description: 'A spa-inspired hospitality concept with minimalist labels and a premium tactile feel.',
                 tags: ['Hospitality', 'Pump Bottle'],
                 format: 'Amber glass / PET bottles',
@@ -382,6 +451,15 @@
         const modalIndustry = document.getElementById('modalIndustry');
         const modalColors = document.getElementById('modalColors');
         const modalClose = document.getElementById('modalClose');
+        const modalPrev = document.getElementById('modalPrev');
+        const modalNext = document.getElementById('modalNext');
+        const modalCounter = document.getElementById('modalCounter');
+        let activeProjectIndex = 0;
+        let activeImageIndex = 0;
+
+        function getProjectImages(project) {
+            return Array.isArray(project.images) && project.images.length ? project.images : [project.image];
+        }
 
         function renderGallery() {
             gallery.innerHTML = projects.map((project, index) => `
@@ -400,11 +478,23 @@
             `).join('');
         }
 
+        function updateModalImage() {
+            const project = projects[activeProjectIndex];
+            if (!project) return;
+            const images = getProjectImages(project);
+            activeImageIndex = Math.max(0, Math.min(activeImageIndex, images.length - 1));
+            modalImage.src = images[activeImageIndex];
+            modalImage.alt = `${project.title} preview ${activeImageIndex + 1}`;
+            modalCounter.textContent = `${activeImageIndex + 1} / ${images.length}`;
+            modalPrev.disabled = images.length <= 1;
+            modalNext.disabled = images.length <= 1;
+        }
+
         function openModal(index) {
             const project = projects[index];
             if (!project) return;
-            modalImage.src = project.image;
-            modalImage.alt = project.title;
+            activeProjectIndex = index;
+            activeImageIndex = 0;
             modalTitle.textContent = project.title;
             modalDescription.textContent = project.description;
             modalTags.innerHTML = project.tags.map(tag => `<span class="pill">${tag}</span>`).join('');
@@ -412,6 +502,7 @@
             modalMaterial.textContent = project.material;
             modalIndustry.textContent = project.industry;
             modalColors.textContent = project.colors;
+            updateModalImage();
             modal.classList.add('open');
             modal.setAttribute('aria-hidden', 'false');
         }
@@ -419,6 +510,15 @@
         function closeModal() {
             modal.classList.remove('open');
             modal.setAttribute('aria-hidden', 'true');
+        }
+
+        function showNextImage(direction) {
+            const project = projects[activeProjectIndex];
+            if (!project) return;
+            const images = getProjectImages(project);
+            if (images.length <= 1) return;
+            activeImageIndex = (activeImageIndex + direction + images.length) % images.length;
+            updateModalImage();
         }
 
         gallery.addEventListener('click', (event) => {
@@ -441,9 +541,14 @@
             if (event.target === modal) closeModal();
         });
 
+        modalPrev.addEventListener('click', () => showNextImage(-1));
+        modalNext.addEventListener('click', () => showNextImage(1));
         modalClose.addEventListener('click', closeModal);
         document.addEventListener('keydown', (event) => {
+            if (!modal.classList.contains('open')) return;
             if (event.key === 'Escape') closeModal();
+            if (event.key === 'ArrowRight') showNextImage(1);
+            if (event.key === 'ArrowLeft') showNextImage(-1);
         });
 
         renderGallery();
